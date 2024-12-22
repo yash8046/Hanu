@@ -197,7 +197,7 @@
                     <option value="PhD">PhD</option>
                 </select>
             </div>
-            <button id="sendToSlack"type="submit" class="button"onclick="sendMessage()" >Submit</button>
+            <button id="sendToSlackButton"type="submit" class="button" >Submit</button>
         </form>
     </section>
 
@@ -227,52 +227,47 @@
             };
         }
 
-        document.getElementById("studyAbroadForm").addEventListener("submit", function(event) {
+        document.getElementById("studyAbroadForm").addEventListener("submit", async function(event) {
             event.preventDefault(); // Prevent default form submission
-            showCustomAlert("Your form has been submitted successfully!");
-            
+
+            const userName = document.getElementById('userName').value;
+            const userMobile = document.getElementById('userMobile').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const studyLocation = document.getElementById('studyLocation').value;
+            const degreeType = document.getElementById('degreeType').value;
+
+            const formData = {
+                userName,
+                userMobile,
+                userEmail,
+                studyLocation,
+                degreeType
+            };
+
+            try {
+                // Send the form data to the backend (instead of Slack directly)
+                const response = await fetch('http://localhost:3000/sendSlackMessage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData), // Send the form data as a JSON object
+                });
+
+                const data = await response.json();
+
+                // Handle response from the backend
+                if (data.success) {
+                    showCustomAlert("Your form has been submitted successfully!");
+                } else {
+                    showCustomAlert(`Error: ${data.message}`);
+                }
+
+            } catch (error) {
+                showCustomAlert('Failed to send message');
+            }
         });
-        
     </script>
-<script>
-    function sendMessage() {
-// Your OAuth token
-const oauthToken = 'xoxb-7818150030519-8207845424738-rf9CbwrZVCwv8zMpX0Il9YY1';  // Replace with your actual OAuth token
-
-// Slack channel where the message will be sent
-const channel = '#contact-us-user-emails';  // Replace with your channel name (e.g., #random)
-
-// The message to send
-const message = {
-  channel: channel,
-  text: 'Hello, World!',  // The text you want to send
-};
-
-fetch('https://slack.com/api/chat.postMessage', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${oauthToken}`,  // Use OAuth token for authentication
-  },
-  body: JSON.stringify(message),
-})
-  .then(response => response.json())
-  .then(data => {
-    if (data.ok) {
-      console.log('Message sent successfully!');
-    } else {
-      console.error('Error sending message:', data.error);
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-
-
-    }
-  </script>
-  
-
     
 </body>
 </html>
