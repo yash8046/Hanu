@@ -246,7 +246,7 @@
 
             try {
                 // Send the form data to the backend (instead of Slack directly)
-                const response = await fetch('https://hanu-liart.vercel.app/sendSlackMessage', {
+                const response = await fetch('http://localhost:3000/sendSlackMessage', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

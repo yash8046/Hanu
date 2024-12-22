@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universities</title>
+  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Universities</h1>
+  <ul id="universityList">Loading...</ul>
+
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyA5A22Z7gI66dz6ArPdxVrNDvHpXB_XoGE",
+  authDomain: "hanu-f6b5f.firebaseapp.com",
+  projectId: "hanu-f6b5f",
+  storageBucket: "hanu-f6b5f.firebasestorage.app",
+  messagingSenderId: "305504975347",
+  appId: "1:305504975347:web:64e2fd7c79a60801703a86",
+  measurementId: "G-NYWH4KR1BX"
+};
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Reference to the universities node in the database
+    const universitiesRef = firebase.database().ref('universities');
+
+    // Fetch and display universities
+    universitiesRef.on('value', (snapshot) => {
+      const universities = snapshot.val();
+      displayUniversities(universities);
+    });
+
+    function displayUniversities(universities) {
+      const universityList = document.getElementById('universityList');
+      universityList.innerHTML = ''; // Clear the list
+
+      if (universities) {
+        for (const key in universities) {
+          const university = universities[key];
+          const listItem = document.createElement('li');
+          listItem.textContent = `${university.name} (${university.location}) - Rank: ${university.rank}`;
+          universityList.appendChild(listItem);
+        }
+      } else {
+        universityList.innerHTML = '<li>No universities found.</li>';
+      }
+    }
+  </script>
+</body>
+</html>

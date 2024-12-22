@@ -5,11 +5,7 @@ const cors = require('cors');
 const app = express();
 
 // Enable CORS to allow requests from the frontend (localhost:3001)
-app.use(cors({
-    origin: '*', // Allow all origins
-    methods: ['GET', 'POST'], // Allow specific methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-}));
+app.use(cors());
 
 // Middleware to parse JSON data
 app.use(express.json());
