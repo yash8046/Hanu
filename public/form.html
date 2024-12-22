@@ -228,46 +228,45 @@
         }
 
         document.getElementById("studyAbroadForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); // Prevent default form submission
 
-    const userName = document.getElementById('userName').value;
-    const userMobile = document.getElementById('userMobile').value;
-    const userEmail = document.getElementById('userEmail').value;
-    const studyLocation = document.getElementById('studyLocation').value;
-    const degreeType = document.getElementById('degreeType').value;
+            const userName = document.getElementById('userName').value;
+            const userMobile = document.getElementById('userMobile').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const studyLocation = document.getElementById('studyLocation').value;
+            const degreeType = document.getElementById('degreeType').value;
 
-    const formData = {
-        userName,
-        userMobile,
-        userEmail,
-        studyLocation,
-        degreeType
-    };
+            const formData = {
+                userName,
+                userMobile,
+                userEmail,
+                studyLocation,
+                degreeType
+            };
 
-    try {
-        // Send the form data to the Vercel serverless function
-        const response = await fetch('/api/sendSlackMessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData), // Send the form data as a JSON object
+            try {
+                // Send the form data to the backend (instead of Slack directly)
+                const response = await fetch('http://localhost:3000/sendSlackMessage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData), // Send the form data as a JSON object
+                });
+
+                const data = await response.json();
+
+                // Handle response from the backend
+                if (data.success) {
+                    showCustomAlert("Your form has been submitted successfully!");
+                } else {
+                    showCustomAlert(`Error: ${data.message}`);
+                }
+
+            } catch (error) {
+                showCustomAlert('Failed to send message');
+            }
         });
-
-        const data = await response.json();
-
-        // Handle response from the backend
-        if (data.success) {
-            showCustomAlert("Your form has been submitted successfully!");
-        } else {
-            showCustomAlert(`Error: ${data.message}`);
-        }
-
-    } catch (error) {
-        showCustomAlert('Failed to send message');
-    }
-});
-
     </script>
     
 </body>
