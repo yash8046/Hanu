@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanu </title>
+    <div id="root"></div>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    
+    <style>
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(50, 132, 214, 0.9);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+            background-color: rgba(0, 77, 153, 0.7);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffd700;
+            color: #00264d;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .apply-now {
+            padding: 0.8rem 1.5rem;
+            background-color: #ffd700;
+            color: #00264d;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            animation: blink 1s infinite; 
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .apply-now:hover {
+            background-color: #004d99;
+            color: white;
+        }
+        .apply-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 0px;
+        }
+        .apply-button {
+padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: #004d99;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  animation: blink 1s infinite;
+  font-family: 'Poppins', sans-serif;
+}
+.service-block {
+  flex: 1 1 calc(33.333% - 20px); /* 3 blocks per row */
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.service-block:hover {
+  transform: scale(1.05);
+  font-family: 'Poppins', sans-serif;
+}
+
+.service-block h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.service-block p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.service-block .button {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #004d99;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.service-block .button:hover {
+  background-color: #ffd700;
+  color: #004d99;
+}
+@media (max-width: 768px) {
+  .service-block {
+      flex: 1 1 calc(50% - 20px); /* 2 blocks per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .service-block {
+      flex: 1 1 100%; /* 1 block per row */
+  }
+} 
+        .hero {
+            background: rgba(0, 0, 0, 0.5);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        section {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        /* Questionnaire Dialog */
+        #questionnaire {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            display: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #questionnaire h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #004d99;
+        }
+
+        .question {
+            margin-bottom: 1rem;
+        }
+
+        .options label {
+            display: block;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .progress {
+            margin: 1rem 0;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #004d99;
+            width: 0;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .dialog-buttons {
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .dialog-buttons button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #004d99;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dialog-buttons button:hover {
+            background-color: #ffd700;
+            color: #004d99;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+        .logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+.logo img {
+    width: 10%; /* Makes it responsive */
+    max-width: 400px; /* Ensures it doesn’t get too large */
+    height: auto;
+}
+
+.reviews {
+    background-color: #f7f9fc;
+    padding: 0.5rem;
+    text-align: center;
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 95%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.review-heading {
+    font-size: 2rem;
+    color: #004d99;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.review-container {
+    display: flex;
+    gap: 1rem;
+    overflow: hidden; /* Hide scrollbars */
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 10px;
+}
+
+.review-card {
+    flex: 0 0 auto;
+    width: 350px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    text-align: left;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0.5;
+    transform: scale(0.9);
+    position: relative;
+}
+
+.review-card.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.review-card:hover {
+    transform: scale(1.01);
+    opacity: 1;
+}
+
+.review-card .stars {
+    font-size: 1.5rem; /* Larger star size */
+    color: gold;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.review-card h3 {
+    font-size: 1.2rem;
+    color: #004d99;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.review-card p {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.review-card .reviewer {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: #004d99;
+}
+
+.review-card .reviewer img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .reviews {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    .review-heading {
+        font-size: 1.5rem;
+    }
+    .review-card {
+        width: 280px;
+        padding: 1rem;
+    }
+    .review-card h3 {
+        font-size: 1rem;
+    }
+    .review-card p {
+        font-size: 0.8rem;
+    }
+}
+
+        footer {
+            background-color: rgba(249, 249, 249);
+            color: rgba(0, 0, 0, 0.9);
+            text-align: center;
+            padding: 1rem 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            section {
+                margin: 1rem;
+                padding: 1.5rem;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .section-heading {
+                font-size: 1.5rem;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .section-content {
+                font-size: 0.9rem;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .button {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .apply-now {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .review-card {
+                width: 100%;
+            }
+        }
+        .scrolling-message {
+            position: relative;
+    background-color: #ffd700;
+    color: #00264d;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+        }
+
+        .scrolling-message span {
+        display: inline-block;
+    white-space: nowrap;
+    animation: scroll 10s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+        transform: translateX(100%); /* Start off-screen to the right */
+    }
+    50% {
+        transform: translateX(0); /* Moves to the center */
+    }
+    100% {
+        transform: translateX(-100%); /* Move off-screen to the left */
+    }
+        }
+        .timer-section {
+    text-align: center;
+    margin: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
+    
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+      font-family: 'Poppins', sans-serif;
+}
+
+        .timer-description {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .timer {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(45deg, #004d99, #007bb5);
+    padding: .2rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    display: inline-block; /* Make the timer box wrap to its content */
+    max-width: 100%; /* Ensure it doesn't exceed the available space */
+    width: auto; /* Allow the width to adjust based on the content */
+    animation: blink 1s infinite; 
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+      
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="scrolling-message">
+        <span>📣 Now accepting transfer applications! Apply today and secure your future. 🎓 48 hours left</span>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Hanu Logo" class="logo-image" />
+            Hanu</div>
+        <div class="nav-links">
+            <a href="#home">Student Essentials</a>
+            <a href="#study-abroad">Study Destinations</a>
+            <a href="#services">Services</a>
+            <a href="#services">Visa Help</a>
+            <a href="#about">About</a>
+        </div>
+        <a href="#apply" class="apply-now" id="apply-button">Apply Now</a>
+    </nav>
+    <div class="hero" id="home"> <h1>Welcome to Your Study Abroad Journey</h1> </div>
+    <div class="review-heading">
+        <div class="timer-description">
+            Hurry! Free counseling offer ends soon:
+        </div>
+        <div class="timer" id="countdown"> 00:00:00</div>
+       
+    </div>
+    <div class="apply-button-container">
+        <a href="#apply" class="apply-button" id=apply-button2>Apply Now</a>
+    </div>
+
+    
+   
+    <section id="study-abroad" class="hidden">
+      <h2 class="section-heading">Study Destinations</h2>
+      <div class="section-content">
+          <p>Discover top destinations for your studies. Whether it's the bustling cities of Europe, the innovation hubs of North America, or the cultural richness of Asia, we've got you covered.</p>
+          <a href="#" class="button">Learn More</a>
+      </div>
+  </section>
+
+  <section id="reviews" class="reviews">
+    <h2 class="review-heading">What Our Students Say</h2>
+    <div class="review-container">
+        <div class="review-card active">
+            <div class="stars">★★★★★</div>
+            <h3>"A Life-Changing Experience!"</h3>
+            <p>Thanks to Hanu Edu, I was able to secure admission to my dream university. Their guidance throughout the process was invaluable.</p>
+            <p class="reviewer">
+                <img src="images/people-5.jpg" alt="Sarah K." />
+                - Sarah K., Canada
+            </p>
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Best Decision Ever!"</h3>
+            <p>Choosing Hanu Edu was the best decision I made. The team was approachable and always ready to help. Now I’m studying in my dream college!</p>
+            <p class="reviewer">
+                <img src="images/people-6.jpg" alt="Raj P." />
+                - Raj P., India
+            </p>
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Highly Recommended!"</h3>
+            <p>The personalized counseling sessions helped me narrow down my choices and focus on my goals. I am now studying in the UK, and I couldn’t be happier!</p>
+            <p class="reviewer">
+                <img src="images/people-4.jpg" alt="James L." />
+                - James L., United Kingdom
+            </p>
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Excellent Visa Support!"</h3>
+            <p>The visa process felt overwhelming, but Hanu Edu made it smooth and stress-free. I’m now pursuing my MBA in the USA!</p>
+            <p class="reviewer">
+                <img src="images/people-1.jpg" alt="Priya M." />
+                - Priya M., United States
+            </p>
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Amazing Team!"</h3>
+            <p>The team at Hanu Edu is dedicated and supportive. Their pre-departure sessions prepared me for a seamless transition.</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Kevin T., Australia
+            </p>
+        </div>
+      
+     
+    </div>
+</section>
+
+  <section id="services" class="hidden">
+    <h2 class="section-heading">Our Services</h2>
+    <div class="services-container">
+        <div class="service-block">
+            <h3>Personalized Counseling</h3>
+            <p>Get one-on-one guidance tailored to your academic and career goals.</p>
+            <a href="#" class="button">Explore Counseling</a>
+        </div>
+        <div class="service-block">
+            <h3>Application Assistance</h3>
+            <p>Let us help you craft the perfect application to secure admission to your dream university.</p>
+            <a href="#" class="button">Start Application</a>
+        </div>
+        <div class="service-block">
+            
+            <h3>Visa Guidance</h3>
+            <p>Navigate the complex visa process with our expert guidance.</p>
+            <a href="#" class="button">Get Visa Help</a>
+        </div>
+        <div class="service-block">
+            <h3>Pre-Departure Support</h3>
+            <p>Prepare for your journey with cultural, financial, and practical advice.</p>
+            <a href="#" class="button">Prepare Now</a>
+        </div>
+        <div class="service-block">
+            <h3>Financial Aid Assistance</h3>
+            <p>We help you secure loans, grants, and scholarships to fund your education journey.</p>
+            <a href="#" class="button">Explore Options</a>
+        </div>
+        <div class="service-block">
+            <h3>Language Test Prep</h3>
+            <p>Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
+            <a href="#" class="button">Start Preparing</a>
+        </div>
+        <div class="service-block">
+            <h3>Career Development</h3>
+            <p>Access internships, networking opportunities, and career guidance to build your future.</p>
+            <a href="#" class="button">Boost Your Career</a>
+        </div>
+        
+    </div>
+    <div class="service-block"id="about">
+
+      <h2 class="section-heading">About Hanu</h2>
+      <div class="section-content">
+          <p>Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
+          <a href="about.html" class="button">Read More</a>
+      </div>
+ 
+</div>
+</section>
+<div id="popup" class="popup">
+    <button class="popup-close" onclick="closePopup()">&times;</button>
+    <img id="popupImage" class="popup-image" src="" alt="Profile">
+    <div>
+        <div class="popup-header">Congrats !</div>
+        <div id="popupText" class="popup-content">Loading...</div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 Hanu. All Rights Reserved.</p>
+    <div class="social-media-links">
+        <a href="https://wa.me/17046522396" target="_blank" class="social-link whatsapp">
+            <img src="images/whatsapp.gif" alt="WhatsApp" />
+        </a>
+        <a href="https://t.me/+7sELas_gyp9kYmUx" target="_blank" class="social-link telegram">
+            <img src="images/telegram.gif" alt="Telegram" />
+        </a>
+        <a href="https://www.instagram.com/hanu_edu" target="_blank" class="social-link instagram">
+            <img src="images/instagram.gif" alt="Instagram" />
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61569985835293" target="_blank" class="social-link instagram">
+            <img src="images/facebook.gif" alt="Facebook" />
+        </a>
+    </div>
+    <style>
+        .social-media-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .social-link img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+        .social-link img:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</footer>
+
+    <!-- Overlay and Questionnaire Dialog -->
+    <div id="overlay"></div>
+<div id="questionnaire">
+    <h2>Quick Questionnaire</h2>
+    <div class="question"></div>
+    <div class="options"></div>
+    <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+    <div class="dialog-buttons">
+        <button id="next-button">Next</button>
+        <button id="close-button">Close</button>
+    </div>
+</div>
+
+<div id="custom-alert" class="hidden">
+    <div class="custom-alert-content">
+        <p id="custom-alert-message"></p>
+        <button id="custom-alert-close">OK</button>
+    </div>
+</div>
+
+<style>
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+    }
+
+    #questionnaire {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1100;
+        display: none;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #custom-alert {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1200;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #custom-alert.hidden {
+        display: none;
+    }
+
+    .custom-alert-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 80%;
+    }
+
+    .custom-alert-content p {
+        margin-bottom: 20px;
+    }
+
+    .custom-alert-content button {
+        padding: 10px 20px;
+        background-color: #004d99;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .custom-alert-content button:hover {
+        background-color: #ffd700;
+        color: #00264d;
+    }
+   
+    .popup {
+            position: fixed;
+            bottom: 20px;
+            right: -300px;
+            width: 250px;
+            background: #004d99;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: right 0.5s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .popup.show {
+            right: 20px;
+        }
+
+        .popup-header {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+         
+        }
+
+        .popup-content {
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .popup-close:hover {
+            transform: scale(1.2);
+        }
+
+        .popup-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .popup {
+                width: 220px;
+                padding: 0.8rem;
+            }
+
+            .popup-header {
+                font-size: 1rem;
+            }
+
+            .popup-content {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</style>
+
+<script>
+const reviewContainer = document.querySelector('.review-container');
+const reviewCards = document.querySelectorAll('.review-card');
+let autoScrollInterval;
+let currentIndex = 0;
+
+// Function to update active card
+function updateActiveCard(index) {
+    reviewCards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+    });
+}
+
+// Auto-scrolling logic
+function autoScrollReviews() {
+    currentIndex = (currentIndex + 1) % reviewCards.length;
+    reviewContainer.scrollTo({
+        left: currentIndex * reviewCards[0].offsetWidth,
+        behavior: 'smooth',
+    });
+    updateActiveCard(currentIndex);
+}
+
+// Start auto-scrolling
+function startAutoScroll() {
+    autoScrollInterval = setInterval(autoScrollReviews, 1500);
+}
+
+// Stop auto-scrolling
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
+
+// Event listeners for hover interaction
+reviewContainer.addEventListener('mouseenter', stopAutoScroll);
+reviewContainer.addEventListener('mouseleave', startAutoScroll);
+
+startAutoScroll();
+    
+    const questions = [
+        {
+            question: "What is your preferred study destination?",
+            options: ["USA", "UK", "Australia", "Canada"]
+        },
+        {
+            question: "Which course are you interested in?",
+            options: ["Engineering", "Medicine", "Business", "Arts"]
+        },
+        {
+            question: "Have you taken an English proficiency test?",
+            options: ["Yes", "No"]
+        },
+        {
+            question: "Do you require financial aid?",
+            options: ["Yes", "No"]
+        },
+        {
+            question: "When do you plan to start your studies?",
+            options: ["2024", "2025", "Later"]
+        }
+    ];
+
+    let currentQuestion = 0;
+
+    const applyButton = document.getElementById("apply-button");
+    const applyButton2 = document.getElementById("apply-button2");
+    const overlay = document.getElementById("overlay");
+    const questionnaire = document.getElementById("questionnaire");
+    const questionDiv = questionnaire.querySelector(".question");
+    const optionsDiv = questionnaire.querySelector(".options");
+    const progressBar = questionnaire.querySelector(".progress-bar");
+    const nextButton = document.getElementById("next-button");
+    const closeButton = document.getElementById("close-button");
+    const customAlert = document.getElementById("custom-alert");
+    const customAlertMessage = document.getElementById("custom-alert-message");
+    const customAlertClose = document.getElementById("custom-alert-close");
+
+    function showCustomAlert(message, callback) {
+        customAlertMessage.textContent = message;
+        customAlert.classList.remove("hidden");
+        customAlertClose.onclick = () => {
+            customAlert.classList.add("hidden");
+            if (callback) callback();
+        };
+    }
+
+    function showQuestion(index) {
+        questionDiv.textContent = questions[index].question;
+        optionsDiv.innerHTML = "";
+        questions[index].options.forEach(option => {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "option";
+            input.value = option;
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(option));
+            optionsDiv.appendChild(label);
+        });
+        progressBar.style.width = ((index + 1) / questions.length) * 100 + "%";
+    }
+
+    applyButton.addEventListener("click", () => {
+        overlay.style.display = "block";
+        questionnaire.style.display = "block";
+        currentQuestion = 0;
+        showQuestion(currentQuestion);
+    });
+
+    applyButton2.addEventListener("click", () => {
+        overlay.style.display = "block";
+        questionnaire.style.display = "block";
+        currentQuestion = 0;
+        showQuestion(currentQuestion);
+    });
+
+    nextButton.addEventListener("click", () => {
+        const selectedOption = optionsDiv.querySelector("input[name='option']:checked");
+        if (!selectedOption) {
+            showCustomAlert("Please select an option.");
+            return;
+        }
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        } else {
+            showCustomAlert("Thank you for completing the questionnaire!", () => {
+                window.location.href = "form.html";
+            });
+        }
+    });
+
+    closeButton.addEventListener("click", () => {
+        overlay.style.display = "none";
+        questionnaire.style.display = "none";
+    });
+    const messages = [
+    { text: "Raj has been accepted into the prestigious Harvard University!", image: "images/notifications_avatar/boy1.png" },
+    { text: "John has successfully applied for a transfer to Stanford University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "An impressive 42 individuals sought career guidance at MIT today!",image: "images/notifications_avatar/boy1.png" },
+    { text: "Sara has proudly submitted her application to Yale University!",image: "images/notifications_avatar/girl1.png" },
+    { text: "Emily is overjoyed to be accepted into UC Berkeley!",image: "images/notifications_avatar/girl1.png" },
+    { text: "Michael has received an offer letter from Princeton University—congratulations!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Anna's transfer request to Columbia University has been approved!", image: "images/notifications_avatar/girl1.png"},
+    { text: "James has completed his career guidance application at USC.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Olivia is putting the final touches on her Duke University application!",  image: "images/notifications_avatar/girl1.png"},
+    { text: "Lucas has officially applied for a transfer to the University of Chicago.",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Sophia is excited about her upcoming career guidance appointment at UCLA.",  image: "images/notifications_avatar/girl1.png" },
+    { text: "Liam has successfully submitted his application to New York University.",  image: "images/notifications_avatar/boy1.png"},
+    { text: "Isabella has received a transfer offer from the University of Pennsylvania!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Aiden has completed his transfer request to UCLA.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Ethan has been selected for a career guidance session at Northwestern University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Mason is celebrating his acceptance to the University of Michigan!",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Zoe has submitted her application to the University of Texas at Austin.",  image: "images/notifications_avatar/girl1.png" },
+    { text: "David has applied for a transfer to the University of Virginia.",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Charlotte is eagerly awaiting her transfer approval to Georgia Tech.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Jacob is thrilled to receive an offer from the University of Washington.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Ella has applied for career guidance at USC today.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Amelia is working diligently on her application to Northwestern University.", image: "images/notifications_avatar/girl1.png"},
+    { text: "Mia has successfully completed her UCLA application.", image: "images/notifications_avatar/girl1.png"},
+    { text: "Benjamin has been invited to an exclusive career guidance session.",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Chloe is excited to submit her application to the University of Florida.",  image: "images/notifications_avatar/girl1.png" },
+    { text: "William's transfer to the University of California has been officially approved!",  image: "images/notifications_avatar/boy1.png"},
+    { text: "Oliver has confirmed his career guidance session with Brown University.", image: "images/notifications_avatar/boy1.png"},
+    { text: "Grace has proudly submitted her application to the University of Miami.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Sebastian has completed his transfer form for the University of Wisconsin.",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Lily has received a career guidance invitation from Cornell University.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Jack is excited to start his journey at Georgetown University!",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Ava has successfully submitted her application to Michigan State University.",  image: "images/notifications_avatar/girl1.png" },
+    { text: "Henry has scheduled his career guidance appointment at the University of North Carolina.",  image: "images/notifications_avatar/boy1.png" },
+    { text: "Amos has applied for a transfer to UC Berkeley.",  image: "images/notifications_avatar/girl1.png"},
+    { text: "Leo has successfully attended his career guidance appointment.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Ella is finalizing her application to the University of Southern California.", image: "images/notifications_avatar/girl1.png"},
+    { text: "Sebastian has received an offer from Vanderbilt University—what a milestone!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Sophie is ready to transfer to Ohio State University.", image: "images/notifications_avatar/girl1.png"},
+    { text: "Charlotte's career guidance request has been approved by Penn State.", image: "images/notifications_avatar/girl1.png" }
+];
+
+
+        function showPopup() {
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById("popupText").textContent = randomMessage.text;
+            document.getElementById("popupImage").src = randomMessage.image;
+            document.getElementById("popup").classList.add("show");
+
+            setTimeout(() => {
+                document.getElementById("popup").classList.remove("show");
+            }, 5000); // Popup disappears after 5 seconds
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.remove("show");
+        }
+
+        // Show a new popup every 10 seconds
+        setInterval(showPopup, 10000);
+    </script>
+</script>
+<script>
+    function startCountdown() {
+        const countdownElement = document.getElementById('countdown');
+        const savedTargetTime = localStorage.getItem('targetTime');
+        let targetTime;
+
+        if (savedTargetTime) {
+            targetTime = parseInt(savedTargetTime, 10);
+        } else {
+            targetTime = new Date().getTime() + 15 * 3600 * 1000 + 25 * 60 * 1000 + 17 * 1000; // 15:25:17
+            localStorage.setItem('targetTime', targetTime);
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetTime - now;
+
+            if (timeLeft > 0) {
+                const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+                const seconds = Math.floor((timeLeft / 1000) % 60);
+
+                countdownElement.textContent = `Time left for free counseling: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                countdownElement.textContent = 'Free counseling offer has ended!';
+                localStorage.removeItem('targetTime');
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+
+    startCountdown();
+</script>
+</body>
+</html>

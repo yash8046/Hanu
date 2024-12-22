@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: -300px;
+            width: 250px;
+            background: #004d99;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: right 0.5s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .popup.show {
+            right: 20px;
+        }
+
+        .popup-header {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .popup-content {
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .popup-close:hover {
+            transform: scale(1.2);
+        }
+
+        .popup-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .popup {
+                width: 220px;
+                padding: 0.8rem;
+            }
+
+            .popup-header {
+                font-size: 1rem;
+            }
+
+            .popup-content {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="popup" class="popup">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <img id="popupImage" class="popup-image" src="" alt="Profile">
+        <div>
+            <div class="popup-header">Notification</div>
+            <div id="popupText" class="popup-content">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            { text: "Raj got into XYZ University!", image: "https://via.placeholder.com/50" },
+            { text: "John applied for transfer to ABC University.", image: "https://via.placeholder.com/50" },
+            { text: "42 people applied for career guidance today.", image: "https://via.placeholder.com/50" },
+            { text: "Sara just completed her application for University of PQR!", image: "https://via.placeholder.com/50" }
+        ];
+
+        function showPopup() {
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById("popupText").textContent = randomMessage.text;
+            document.getElementById("popupImage").src = randomMessage.image;
+            document.getElementById("popup").classList.add("show");
+
+            setTimeout(() => {
+                document.getElementById("popup").classList.remove("show");
+            }, 5000); // Popup disappears after 5 seconds
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.remove("show");
+        }
+
+        // Show a new popup every 10 seconds
+        setInterval(showPopup, 10000);
+    </script>
+</body>
+</html>
