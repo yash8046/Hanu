@@ -1,7 +1,49 @@
 import './App.css';
 
 function App() {
+    const sendMessageToSlack = async () => {
+        const payload = {
+          text: "Hi from React!",
+        };
     
+        try {
+          const response = await fetch("https://hooks.slack.com/services/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", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+    
+          if (response.ok) {
+            alert("Message sent to Slack successfully!");
+          } else {
+            alert("Failed to send message to Slack.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred while sending the message.");
+        }
+      };
+      return (
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <h1>Send a Message to Slack</h1>
+          <button
+            onClick={sendMessageToSlack}
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              backgroundColor: "#4A154B",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Send Hi to Slack
+          </button>
+        </div>
+      );
 }
 document.addEventListener("DOMContentLoaded", () => {
   const hiddenElements = document.querySelectorAll(".hidden");
