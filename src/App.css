@@ -1,69 +1,4 @@
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
-  background-size: cover;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  
-}
 
-header {
-  background-color: rgba(0, 77, 153, 0.9);
-  color: white;
-  padding: 1rem 0;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 999; /* Ensure header stays above other content */
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(0, 38, 77, 0.9);
-  padding: 0.5rem 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative; /* Adjust position relative to the screen */
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  padding: 0.8rem 1.5rem;
-  font-weight: 500;
-  border-radius: 30px;
-  background-color: rgba(0, 77, 153, 0.7);
-  transition: all 0.3s ease;
-}
-
-.nav-links a:hover {
-  background-color: #ffd700;
-  color: #00264d;
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.hero {
-  background: rgba(0, 0, 0, 0.5);
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.hero h1 {
-  font-size: 3rem;
-}
 
 
 .apply-button-container {
@@ -79,27 +14,6 @@ nav {
   color: #00264d;
 }
 
-section {
-  padding: 2rem;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  margin: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.section-heading {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-  color: #004d99;
-}
-
-.section-content {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 1rem;
-  line-height: 1.8;
-}
 
 .button {
   display: inline-block;
@@ -120,61 +34,6 @@ section {
   color: #00264d;
 }
 
-footer {
-  background-color: rgba(0, 77, 153, 0.9);
-  color: white;
-  text-align: center;
-  padding: 1rem 0;
-}
-
-/* Side Navigation for Mobile */
-.mobile-nav {
-  display: none;
-}
-
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: white;
-}
-
-@media (max-width: 768px) {
-  nav {
-      flex-direction: row;
-      justify-content: space-between;
-  }
-
-  .nav-links {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: rgba(0, 38, 77, 0.9);
-      padding-top: 1rem;
-      transition: left 0.3s ease;
-      z-index: 1000;
-  }
-
-  .nav-links.show {
-      left: 0;
-  }
-
-  .nav-links a {
-      padding: 1rem;
-      text-align: left;
-      margin: 0;
-      background-color: transparent;
-      border-radius: 0;
-  }
-
-  .hamburger {
-      display: block;
-  }
-}
 
 /* Additional CSS (for React App) */
 .App {
