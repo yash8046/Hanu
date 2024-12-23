@@ -215,6 +215,9 @@
     <script>
         function showCustomAlert(message) {
             const alertMessage = document.getElementById("custom-alert-message");
+            const axios = require('axios');
+console.log('Axios loaded successfully:', !!axios);
+
             const customAlert = document.getElementById("custom-alert");
             const closeButton = document.getElementById("custom-alert-close");
 
@@ -223,6 +226,7 @@
 
             closeButton.onclick = function () {
                 customAlert.style.display = "none";
+                
                 //window.location.href = "index.html"; 
             };
         }
