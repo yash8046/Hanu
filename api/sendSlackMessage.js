@@ -42,7 +42,8 @@ app.post('/sendSlackMessage', async (req, res) => {
         const response = await axios.post(SLACK_WEBHOOK_URL, { text: message });
         res.status(200).json({ success: true, message: 'Message sent to Slack', data: response.data });
     } catch (error) {
-        console.error('Error sending message to Slack:', error);
+        console.error('Error sending message to Slack:', error.message);
+        // Ensure error response is JSON
         res.status(500).json({ success: false, message: 'Failed to send message to Slack', error: error.message });
     }
 });
