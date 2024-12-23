@@ -264,8 +264,11 @@
                 }
 
             } catch (error) {
-                showCustomAlert('Failed to send message');
-            }
+    console.error('Error occurred while sending the message:', error); // Logs the error for debugging
+    const errorMessage = error.message || 'An unknown error occurred'; // Fallback if the error object lacks a message
+    showCustomAlert(`Failed to send message: ${errorMessage}`); // Display a detailed error message to the user
+}
+
         });
     </script>
     
