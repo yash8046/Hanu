@@ -229,45 +229,42 @@
         }
 
         document.getElementById("studyAbroadForm").addEventListener("submit", async function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const formData = {
-        userName: document.getElementById("userName").value,
-        userMobile: document.getElementById("userMobile").value,
-        userEmail: document.getElementById("userEmail").value,
-        studyLocation: document.getElementById("studyLocation").value,
-        degreeType: document.getElementById("degreeType").value,
-    };
+        const userName = document.getElementById('userName').value;
+        const userMobile = document.getElementById('userMobile').value;
+        const userEmail = document.getElementById('userEmail').value;
+        const studyLocation = document.getElementById('studyLocation').value;
+        const degreeType = document.getElementById('degreeType').value;
 
-    try {
-        const response = await fetch('https://hanu-liart.vercel.app/api/sendSlackMessage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
+        const message = {
+            text: `New Study Abroad Application:
+            Name: ${userName}
+            Mobile: ${userMobile}
+            Email: ${userEmail}
+            Study Location: ${studyLocation}
+            Degree Type: ${degreeType}`
+        };
 
-        let data;
-        if (response.ok) {
-            try {
-                data = await response.json();
-            } catch (e) {
-                throw new Error('Invalid JSON response from server');
-            }
+        try {
+            const response = await fetch('https://hooks.slack.com/services/YOUR_WEBHOOK_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            });
 
-            if (data.success) {
-                showCustomAlert("Your form has been submitted successfully!");
+            if (response.ok) {
+                alert("Message sent successfully to Slack!");
             } else {
-                showCustomAlert(`Error: ${data.message}`);
+                alert("Failed to send message. Please try again.");
             }
-        } else {
-            const errorText = await response.text();
-            throw new Error(`Error: ${response.status}. Message: ${errorText}`);
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
         }
-    } catch (error) {
-        console.error('Error:', error.message);
-        showCustomAlert(`Failed to send message: ${error.message}`);
-    }
-});
+    });
 
     </script>
     
