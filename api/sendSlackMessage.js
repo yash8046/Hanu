@@ -1,5 +1,5 @@
 const express = require('express');
-const axios = require('./node_modules/axios/index.d.cts');
+const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
@@ -39,11 +39,13 @@ app.post('/sendSlackMessage', async (req, res) => {
         Degree Type: ${degreeType}`;
 
     try {
+        console.log('Sending message to Slack...');
         const response = await axios.post(SLACK_WEBHOOK_URL, { text: message });
-        res.status(200).json({ success: true, message: 'Message sent to Slack', data: response.data });
+        console.log('Slack response:', response.data);
+
+        res.status(200).json({ success: true, message: 'Message sent to Slack' });
     } catch (error) {
-        console.error('Error sending message to Slack:', error.message);
-        // Ensure error response is JSON
+        console.error('Error sending message to Slack:', error);
         res.status(500).json({ success: false, message: 'Failed to send message to Slack', error: error.message });
     }
 });
