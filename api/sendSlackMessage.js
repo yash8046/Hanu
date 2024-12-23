@@ -15,7 +15,21 @@ const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/T07Q24E0WF9/B085XQF9
 
 // POST route to handle sending messages to Slack
 app.post('/sendSlackMessage', async (req, res) => {
+    // Parse request body safely
+    if (req.body && typeof req.body === 'string') {
+        try {
+            req.body = JSON.parse(req.body);
+        } catch (error) {
+            console.error('Failed to parse request body:', error);
+            return res.status(400).json({ success: false, message: 'Invalid JSON in request body' });
+        }
+    }
+
     const { userName, userMobile, userEmail, studyLocation, degreeType } = req.body;
+
+    if (!userName || !userMobile || !userEmail || !studyLocation || !degreeType) {
+        return res.status(400).json({ success: false, message: 'All fields are required' });
+    }
 
     const message = `New Study Abroad Application:
         Name: ${userName}
@@ -28,6 +42,7 @@ app.post('/sendSlackMessage', async (req, res) => {
         const response = await axios.post(SLACK_WEBHOOK_URL, { text: message });
         res.status(200).json({ success: true, message: 'Message sent to Slack', data: response.data });
     } catch (error) {
+        console.error('Error sending message to Slack:', error);
         res.status(500).json({ success: false, message: 'Failed to send message to Slack', error: error.message });
     }
 });
