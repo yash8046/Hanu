@@ -537,7 +537,54 @@ padding: 1rem 2rem;
                 opacity: 1;
             }
         }
-      
+/* Adjust menu-toggle button */
+.menu-toggle {
+    display: none; /* Hidden by default on larger screens */
+    position: absolute;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    z-index: 1100;
+    cursor: pointer;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        position: relative;
+    }
+
+    .nav-links {
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        background-color: rgba(0, 38, 77, 0.95);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        gap: 20px;
+        z-index: 1000;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block; /* Visible on mobile */
+    }
+
+    .menu-toggle.hidden {
+        display: none; /* Hidden when menu is open */
+    }
+}
+   
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
@@ -550,16 +597,19 @@ padding: 1rem 2rem;
     <nav>
         <div class="logo">
             <img src="images/logo.png" alt="Hanu Logo" class="logo-image" />
-            Hanu</div>
-        <div class="nav-links">
+            Hanu
+        </div>
+        <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="#home">Student Essentials</a>
             <a href="#study-abroad">Study Destinations</a>
             <a href="#services">Services</a>
-            <a href="#services">Visa Help</a>
+            <a href="#visa-help">Visa Help</a>
             <a href="#about">About</a>
+            <a href="#apply" class="apply-now" id="apply-button">Apply Now</a>
         </div>
-        <a href="#apply" class="apply-now" id="apply-button">Apply Now</a>
     </nav>
+    
     <div class="hero" id="home"> <h1>Welcome to Your Study Abroad Journey</h1> </div>
     <div class="review-heading">
         <div class="timer-description">
@@ -899,6 +949,19 @@ padding: 1rem 2rem;
 </style>
 
 <script>
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+    menuToggle.classList.toggle("hidden"); // Hide the menu icon when menu is open
+});
+
+navLinks.addEventListener("click", () => {
+    navLinks.classList.remove("show");
+    menuToggle.classList.remove("hidden"); // Show the menu icon again after menu is closed
+});
+
 const reviewContainer = document.querySelector('.review-container');
 const reviewCards = document.querySelectorAll('.review-card');
 let autoScrollInterval;
@@ -961,7 +1024,7 @@ startAutoScroll();
     ];
 
     let currentQuestion = 0;
-
+  let questionnaireResponses = [];
     const applyButton = document.getElementById("apply-button");
     const applyButton2 = document.getElementById("apply-button2");
     const overlay = document.getElementById("overlay");
@@ -1020,10 +1083,15 @@ startAutoScroll();
             showCustomAlert("Please select an option.");
             return;
         }
+        questionnaireResponses[currentQuestion] = {
+                question: questions[currentQuestion].question,
+                answer: selectedOption.value
+            };
         if (currentQuestion < questions.length - 1) {
             currentQuestion++;
             showQuestion(currentQuestion);
         } else {
+            localStorage.setItem("questionnaireResponses", JSON.stringify(questionnaireResponses));
             showCustomAlert("Thank you for completing the questionnaire!", () => {
                 window.location.href = "form.html";
             });
