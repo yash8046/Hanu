@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+const SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/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'
 
 export default async function handler(req, res) {
     if (req.method === 'OPTIONS') {
