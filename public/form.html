@@ -228,48 +228,60 @@
         }
 
         document.getElementById("studyAbroadForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // Prevent default form submission
 
-            const userName = document.getElementById('userName').value;
-            const userMobile = document.getElementById('userMobile').value;
-            const userEmail = document.getElementById('userEmail').value;
-            const studyLocation = document.getElementById('studyLocation').value;
-            const degreeType = document.getElementById('degreeType').value;
+    const userName = document.getElementById('userName').value;
+    const userMobile = document.getElementById('userMobile').value;
+    const userEmail = document.getElementById('userEmail').value;
+    const studyLocation = document.getElementById('studyLocation').value;
+    const degreeType = document.getElementById('degreeType').value;
 
-            const formData = {
-                userName,
-                userMobile,
-                userEmail,
-                studyLocation,
-                degreeType
-            };
+    const formData = {
+        userName,
+        userMobile,
+        userEmail,
+        studyLocation,
+        degreeType
+    };
 
-            try {
-                // Send the form data to the backend (instead of Slack directly)
-                const response = await fetch('https://hanu-liart.vercel.app/sendSlackMessage', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData), // Send the form data as a JSON object
-                });
+    try {
+        const response = await fetch('https://hanu-liart.vercel.app/sendSlackMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
 
-                const data = await response.json();
+        if (!response.ok) {
+            const errorText = await response.text(); // Capture plain text if JSON is unavailable
+            throw new Error(`HTTP error! status: ${response.status}. Response: ${errorText}`);
+        }
 
-                // Handle response from the backend
-                if (data.success) {
-                    showCustomAlert("Your form has been submitted successfully!");
-                } else {
-                    showCustomAlert(`Error: ${data.message}`);
-                }
+        // Try parsing JSON response if valid
+        let data;
+        try {
+            data = await response.json();
+        } catch (jsonError) {
+            throw new Error('Received a non-JSON response from the server');
+        }
 
-            } catch (error) {
-    console.error('Error occurred while sending the message:', error); // Logs the error for debugging
-    const errorMessage = error.message || 'An unknown error occurred'; // Fallback if the error object lacks a message
-    showCustomAlert(`Failed to send message: ${errorMessage}`); // Display a detailed error message to the user
+        if (data.success) {
+            showCustomAlert("Your form has been submitted successfully!");
+        } else {
+            showCustomAlert(`Error: ${data.message}`);
+        }
+    } catch (error) {
+        console.error('Error occurred while sending the message:', error);
+        const errorMessage = error.message || 'An unknown error occurred';
+        showCustomAlert(`Failed to send message: ${errorMessage}`);
+    }
+});
+
+function showCustomAlert(message) {
+    alert(message); // Basic alert; replace with a custom modal or UI element if desired
 }
 
-        });
     </script>
     
 </body>
