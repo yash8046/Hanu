@@ -246,7 +246,7 @@
 
             try {
                 // Send the form data to the backend (instead of Slack directly)
-                const response = await fetch('https://hanu-liart.vercel.app/slack-webhook-server/sendSlackMessage', {
+                const response = await fetch('https://hanu-liart.vercel.app/api/sendSlackMessage', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -264,11 +264,9 @@
                 }
 
             } catch (error) {
-    console.error('Error occurred while sending the message:', error); // Logs the error for debugging
-    const errorMessage = error.message || 'An unknown error occurred'; // Fallback if the error object lacks a message
-    showCustomAlert(`Failed to send message: ${errorMessage}`); // Display a detailed error message to the user
-}
-
+                showCustomAlert('Failed to send message');
+                console.log(error);
+            }
         });
     </script>
     
