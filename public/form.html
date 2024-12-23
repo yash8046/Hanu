@@ -215,9 +215,6 @@
     <script>
         function showCustomAlert(message) {
             const alertMessage = document.getElementById("custom-alert-message");
-            const axios = require('axios');
-console.log('Axios loaded successfully:', !!axios);
-
             const customAlert = document.getElementById("custom-alert");
             const closeButton = document.getElementById("custom-alert-close");
 
@@ -243,7 +240,7 @@ console.log('Axios loaded successfully:', !!axios);
     };
 
     try {
-        const response = await fetch('https://hanu-liart.vercel.app/api/sendSlackMessage', {
+        const response = await fetch('https://hanu-liart.vercel.app/sendSlackMessage', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
