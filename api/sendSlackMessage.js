@@ -1,42 +1,38 @@
+const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
-const SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/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'
+const app = express();
 
-export default async function handler(req, res) {
-    if (req.method === 'OPTIONS') {
-        // Handle preflight requests
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-        res.status(200).end();
-        return;
-    }
+// Enable CORS
+app.use(cors());
+
+// Middleware to parse JSON data
+app.use(express.json());
+
+// Slack Webhook URL
+const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+
+// POST route to handle sending messages to Slack
+app.post('/api/sendSlackMessage', async (req, res) => {
+    const { userName, userMobile, userEmail, studyLocation, degreeType } = req.body;
+
+    const message = `New Study Abroad Application:
+        Name: ${userName}
+        Mobile: ${userMobile}
+        Email: ${userEmail}
+        Study Location: ${studyLocation}
+        Degree Type: ${degreeType}`;
 
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (or specify your domain)
-
-        if (req.method !== 'POST') {
-            return res.status(405).json({ success: false, message: 'Method Not Allowed' });
-        }
-
-        const { userName, userMobile, userEmail, studyLocation, degreeType } = req.body;
-
-        if (!userName || !userMobile || !userEmail || !studyLocation || !degreeType) {
-            return res.status(400).json({ success: false, message: 'All fields are required' });
-        }
-
-        const message = `New Study Abroad Application:
-            Name: ${userName}
-            Mobile: ${userMobile}
-            Email: ${userEmail}
-            Study Location: ${studyLocation}
-            Degree Type: ${degreeType}`;
-
-        await axios.post(SLACK_WEBHOOK_URL, { text: message });
-
-        res.status(200).json({ success: true, message: 'Message sent to Slack' });
+        const response = await axios.post(SLACK_WEBHOOK_URL, { text: message });
+        res.status(200).json({ success: true, message: 'Message sent to Slack', data: response.data });
     } catch (error) {
-        console.error('Error in handler:', error.message, error.stack);
-        res.status(500).json({ success: false, message: 'Failed to send message', error: error.message });
+        res.status(500).json({ success: false, message: 'Failed to send message to Slack', error: error.message });
     }
-}
+});
+
+// Start server on port 3000
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+});
