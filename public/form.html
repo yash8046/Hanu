@@ -171,7 +171,12 @@
             </div>
             <div>
                 <label for="userMobile">Mobile Number:</label>
-                <input type="tel" id="userMobile" name="userMobile" placeholder="Enter your mobile number" required>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <select id="countryCode" name="countryCode" required>
+                        <option value="" disabled selected>Detecting...</option>
+                    </select>
+                    <input type="tel" id="userMobile" name="userMobile" placeholder="Enter your mobile number" required>
+                </div>
             </div>
             <div>
                 <label for="userEmail">Email Address:</label>
@@ -197,9 +202,10 @@
                     <option value="PhD">PhD</option>
                 </select>
             </div>
-            <button id="sendToSlackButton"type="submit" class="button" >Submit</button>
+            <button id="sendToSlackButton" type="submit" class="button">Submit</button>
         </form>
     </section>
+    
 
     <div id="custom-alert">
         <div class="custom-alert-content">
@@ -230,10 +236,13 @@
 
         document.getElementById("studyAbroadForm").addEventListener("submit", async function (event) {
     event.preventDefault();
+    const countryCode = document.getElementById('countryCode').value;
+        const Mobile = document.getElementById('userMobile').value;
+        const userMobile = `${countryCode}${Mobile}`;
 
     const formData = {
         userName: document.getElementById("userName").value,
-        userMobile: document.getElementById("userMobile").value,
+        userMobile,
         userEmail: document.getElementById("userEmail").value,
         studyLocation: document.getElementById("studyLocation").value,
         degreeType: document.getElementById("degreeType").value,
@@ -270,6 +279,77 @@
 });
 
     </script>
+    <script>
+        // Using a plugin like intl-tel-input for dynamic country detection
+        const countryCodeSelect = document.getElementById('countryCode');
+
+fetch('https://ipapi.co/json/') // Fetch user's IP-based location
+    .then(response => response.json())
+    .then(data => {
+        const userCountryCode = data.country_calling_code;
+        const allCountries = [
+            { name: 'United States', code: '+1' },
+            { name: 'United Kingdom', code: '+44' },
+            { name: 'Canada', code: '+1' },
+            { name: 'Australia', code: '+61' },
+            { name: 'India', code: '+91' },
+            { name: 'China', code: '+86' },
+            { name: 'Pakistan', code: '+92' },
+            { name: 'Nepal', code: '+977' },
+            { name: 'Bangladesh', code: '+880' },
+            { name: 'Sri Lanka', code: '+94' },
+            { name: 'Bhutan', code: '+975' },
+            { name: 'Myanmar', code: '+95' },
+            { name: 'Afghanistan', code: '+93' },
+            { name: 'Japan', code: '+81' },
+            { name: 'France', code: '+33' },
+            { name: 'Germany', code: '+49' },
+            { name: 'Brazil', code: '+55' },
+            { name: 'South Africa', code: '+27' },
+            { name: 'Russia', code: '+7' },
+            { name: 'Mexico', code: '+52' },
+            { name: 'Italy', code: '+39' },
+            { name: 'Spain', code: '+34' },
+            { name: 'Netherlands', code: '+31' },
+            { name: 'Sweden', code: '+46' },
+            { name: 'Norway', code: '+47' },
+            { name: 'Denmark', code: '+45' },
+            { name: 'Switzerland', code: '+41' },
+            { name: 'Turkey', code: '+90' },
+            { name: 'Saudi Arabia', code: '+966' },
+            { name: 'United Arab Emirates', code: '+971' },
+            { name: 'New Zealand', code: '+64' },
+            { name: 'Singapore', code: '+65' },
+            { name: 'Malaysia', code: '+60' },
+            { name: 'Thailand', code: '+66' },
+            { name: 'South Korea', code: '+82' },
+            { name: 'Philippines', code: '+63' },
+            { name: 'Indonesia', code: '+62' },
+            { name: 'Argentina', code: '+54' },
+            { name: 'Colombia', code: '+57' },
+            { name: 'Chile', code: '+56' },
+            { name: 'Nigeria', code: '+234' },
+            { name: 'Kenya', code: '+254' },
+            { name: 'Egypt', code: '+20' },
+            { name: 'Israel', code: '+972' },
+            // Add additional countries as needed
+        ];
+
+        // Populate the country code dropdown
+        allCountries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.code})`;
+            if (country.code === userCountryCode) {
+                option.selected = true;
+            }
+            countryCodeSelect.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error detecting country code:', error);
+    });
     
+    </script>
 </body>
 </html>
