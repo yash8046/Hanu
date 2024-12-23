@@ -1,20 +1,13 @@
-const express = require('express');
 const axios = require('axios');
-const cors = require('cors');
-
-const app = express();
-
-// Enable CORS to allow requests from the frontend (localhost:3001)
-app.use(cors());
-
-// Middleware to parse JSON data
-app.use(express.json());
 
 // Slack Webhook URL
 const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
 
-// POST route to handle sending messages to Slack
-app.post('/sendSlackMessage', async (req, res) => {
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ success: false, message: 'Method Not Allowed' });
+    }
+
     // Parse request body safely
     if (req.body && typeof req.body === 'string') {
         try {
@@ -48,10 +41,4 @@ app.post('/sendSlackMessage', async (req, res) => {
         console.error('Error sending message to Slack:', error);
         res.status(500).json({ success: false, message: 'Failed to send message to Slack', error: error.message });
     }
-});
-
-// Start server on port 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+}
