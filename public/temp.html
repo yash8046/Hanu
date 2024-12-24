@@ -3,128 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup Example</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Hanu Edu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Add this link to your HTML <head> section -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Add this link to your HTML <head> section -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: #333;
+            
             background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
             background-size: cover;
-            overflow-x: hidden;
         }
 
-        .popup {
-            position: fixed;
-            bottom: 20px;
-            right: -300px;
-            width: 250px;
-            background: #004d99;
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
             color: white;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transition: right 0.5s ease;
-            font-size: 1rem;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
+            background-color: rgba(0, 38, 77, 0.9);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .popup.show {
-            right: 20px;
-        }
-
-        .popup-header {
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-        }
-
-        .popup-content {
-            font-size: 0.9rem;
-            flex-grow: 1;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .logo {
             font-size: 1.5rem;
+            font-weight: 700;
             color: white;
-            background: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+            background-color: rgba(0, 77, 153, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffd700;
+            color: #00264d;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .apply-now {
+            padding: 0.8rem 1.5rem;
+            background-color: #ffd700;
+            color: #00264d;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-now:hover {
+            background-color: #004d99;
+            color: white;
+        }
+
+        .hero {
+            background: rgba(0, 0, 0, 0.5);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .apply-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: -50px;
+        }
+
+        .apply-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #004d99;
+            color: white;
             border: none;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .apply-button:hover {
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        section {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-heading {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #004d99;
+        }
+
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #004d99;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: background-color 0.3s;
         }
 
-        .popup-close:hover {
-            transform: scale(1.2);
+        .button:hover {
+            background-color: #ffd700;
+            color: #00264d;
         }
 
-        .popup-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-            object-fit: cover;
+        footer {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
         }
 
         /* Mobile Optimization */
         @media (max-width: 768px) {
-            .popup {
-                width: 220px;
-                padding: 0.8rem;
+            nav {
+                flex-direction: column;
             }
 
-            .popup-header {
-                font-size: 1rem;
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
             }
 
-            .popup-content {
-                font-size: 0.85rem;
+            .hero h1 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .section-heading {
+                font-size: 1.5rem;
+            }
+
+            .section-content {
+                font-size: 0.9rem;
+            }
+
+            .button {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .apply-now {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
             }
         }
+
+
+  
     </style>
 </head>
 <body>
-    <div id="popup" class="popup">
-        <button class="popup-close" onclick="closePopup()">&times;</button>
-        <img id="popupImage" class="popup-image" src="" alt="Profile">
-        <div>
-            <div class="popup-header">Notification</div>
-            <div id="popupText" class="popup-content">Loading...</div>
+    <header>
+        <h1>Explore the World with Hanu Edu</h1>
+    </header>
+    
+    <nav>
+        <div class="logo">Hanu Edu</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#study-abroad">Study Abroad Destination</a>
+            <a href="#services">Services</a>
+            <a href="#visa-help">Visa Help</a>
+            <a href="#about">About</a>
         </div>
+        <a href="#apply" class="apply-now">Apply Now</a>
+    </nav>
+
+    <div class="hero" id="home">
+        <h1>Welcome to Your Study Abroad Journey</h1>
     </div>
 
-    <script>
-        const messages = [
-            { text: "Raj got into XYZ University!", image: "https://via.placeholder.com/50" },
-            { text: "John applied for transfer to ABC University.", image: "https://via.placeholder.com/50" },
-            { text: "42 people applied for career guidance today.", image: "https://via.placeholder.com/50" },
-            { text: "Sara just completed her application for University of PQR!", image: "https://via.placeholder.com/50" }
-        ];
+    <div class="apply-button-container">
+        <a href="#apply" class="apply-button">Apply Now</a>
+    </div>
 
-        function showPopup() {
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            document.getElementById("popupText").textContent = randomMessage.text;
-            document.getElementById("popupImage").src = randomMessage.image;
-            document.getElementById("popup").classList.add("show");
+    <section id="study-abroad">
+        <h2 class="section-heading">Study Abroad Destinations</h2>
+        <div class="section-content">
+            <p>Discover top destinations for your studies. Whether it's the bustling cities of Europe, the innovation hubs of North America, or the cultural richness of Asia, we've got you covered.</p>
+            <a href="#" class="button">Learn More</a>
+        </div>
+    </section>
 
-            setTimeout(() => {
-                document.getElementById("popup").classList.remove("show");
-            }, 5000); // Popup disappears after 5 seconds
-        }
+    <section id="services">
+        <h2 class="section-heading">Our Services</h2>
 
-        function closePopup() {
-            document.getElementById("popup").classList.remove("show");
-        }
+        <section>
+            <h3>Personalized Counseling</h3>
+            <div class="section-content">
+                <p>Get one-on-one guidance tailored to your academic and career goals.</p>
+                <a href="#" class="button">Explore Counseling</a>
+            </div>
+        </section>
 
-        // Show a new popup every 10 seconds
-        setInterval(showPopup, 10000);
-    </script>
+        <section>
+            <h3>Application Assistance</h3>
+            <div class="section-content">
+                <p>Let us help you craft the perfect application to secure admission to your dream university.</p>
+                <a href="#" class="button">Start Application</a>
+            </div>
+        </section>
+
+        <section>
+            <h3>Visa Guidance</h3>
+            <div class="section-content">
+                <p>Navigate the complex visa process with our expert guidance.</p>
+                <a href="#" class="button">Get Visa Help</a>
+            </div>
+        </section>
+
+        <section>
+            <h3>Pre-Departure Support</h3>
+            <div class="section-content">
+                <p>Prepare for your journey with cultural, financial, and practical advice.</p>
+                <a href="#" class="button">Prepare Now</a>
+            </div>
+        </section>
+
+        <section>
+            <h3>Financial Aid Assistance</h3>
+            <div class="section-content">
+                <p>We help you secure loans, grants, and scholarships to fund your education journey.</p>
+                <a href="#" class="button">Explore Options</a>
+            </div>
+        </section>
+
+        <section>
+            <h3>Language Test Prep</h3>
+            <div class="section-content">
+                <p>Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
+                <a href="#" class="button">Start Preparing</a>
+            </div>
+        </section>
+
+        <section>
+            <h3>Career Development</h3>
+            <div class="section-content">
+                <p>Access internships, networking opportunities, and career guidance to build your future.</p>
+                <a href="#" class="button">Boost Your Career</a>
+            </div>
+        </section>
+    </section>
+
+    <section id="visa-help">
+        <h2 class="section-heading">Visa Help</h2>
+        <div class="section-content">
+            <p>Our visa support services guide you through the process step-by-step. From documentation to interviews, we make the journey seamless and stress-free.</p>
+            <a href="#" class="button">Get Help Now</a>
+        </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-heading">About Hanu</h2>
+      <div class="section-content">
+          <p>Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
+          <a href="about.html" class="button">Read More</a>
+      </div>
+  </section>
+  
+
+    <footer>
+        <p>&copy; 2024 Hanu Edu. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

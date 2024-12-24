@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hanu </title>
     <div id="root"></div>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
@@ -114,6 +114,10 @@ padding: 1rem 2rem;
   animation: blink 1s infinite;
   font-family: 'Poppins', sans-serif;
 }
+.apply-button:hover {
+  background-color: #ffd700;
+  color: #000000;
+}
 .service-block {
   flex: 1 1 calc(33.333% - 20px); /* 3 blocks per row */
   box-sizing: border-box;
@@ -167,15 +171,21 @@ padding: 1rem 2rem;
   }
 } 
         .hero {
-            background: rgba(0, 0, 0, 0.5);
-            height: 200px;
+            
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-
+        .hero-section {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.4);
+        background-size: cover;
+        padding: 50px 0;
+        color: white;
+    }
         .hero h1 {
             font-size: 3rem;
         }
@@ -305,6 +315,12 @@ padding: 1rem 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
 }
+.review-heading h3{
+    font-size: 2rem;
+    color: #004d99;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
 
 .review-container {
     display: flex;
@@ -425,8 +441,10 @@ padding: 1rem 2rem;
             }
 
             .section-heading {
+               
                 font-size: 1.5rem;
                 font-family: 'Poppins', sans-serif;
+                color: #004d99; /* Updated color */
             }
 
             .section-content {
@@ -610,9 +628,87 @@ padding: 1rem 2rem;
     width: 40px;
     height: 40px;
 }
+/*achievements*/
+.stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .stat-item {
+        background: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+        animation: fadeInScale 1s ease-out;
+    }
+
+    .stat-item h3 {
+        font-size: 2rem;
+        color: #004d99;
+        margin: 1rem 0;
+    }
+
+    .stat-item p {
+        font-size: 1rem;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .section-heading {
+            color: #004d99; /* Updated color */
+            font-size: 1.8rem;
+        }
+
+        .stat-item h3 {
+            font-size: 1.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+        }
+    }
 
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+   
 
 </head>
 <body>
@@ -627,128 +723,223 @@ padding: 1rem 2rem;
         </div>
         <button class="menu-toggle" id="menu-toggle">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="#home">Student Essentials</a>
-            <a href="#study-abroad">Study Destinations</a>
+            <a href="#home">College Finder</a>
+            <a href="#study-abroad">Track Application</a>
             <a href="#services">Services</a>
-            <a href="#visa-help">Visa Help</a>
-            <a href="#about">About</a>
-            <a href="#apply" class="apply-now" id="apply-button">Apply Now</a>
+            <a href="#visa-help">Mock Test</a>
+            <a href="#about">About Us</a>
+            <a href="#apply" id="apply-button">Contact Us</a>
         </div>
     </nav>
-    <a href="https://wa.me/17046522396" target="_blank" class="whatsapp-float">
+    <a href="https://wa.me/17046522396 " target="_blank" class="whatsapp-float">
         <img src="images/whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
     </a>
-    <div class="hero" id="home"> <h1>Welcome to Your Study Abroad Journey</h1> </div>
+<div class="hero-section">
+    <div id="home">
+        <h1>Welcome to Your Study Abroad Journey</h1>
+    </div>
     <div class="review-heading">
         <div class="timer-description">
             Hurry! Free counseling offer ends soon:
         </div>
-        <div class="timer" id="countdown"> 00:00:00</div>
-       
+        <div class="timer" id="countdown">00:00:00</div>
     </div>
     <div class="apply-button-container">
         <a href="#apply" class="apply-button" id=apply-button2>Apply Now</a>
+</div>
+    
     </div>
 
+    <section>
+        <h2 class="review-heading">Numbers That Speak for Our Success</h2>
+        <div class="stats-container">
+            <div class="stat-item">
+                <img src="images/graduation.gif" alt="Students" class="stat-icon">
+                <h3>1000+</h3>
+                <p>Students who have been helped to achieve their dreams.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/visa.gif" alt="Visa" class="stat-icon">
+                <h3>95%</h3>
+                <p>Visa approval rate for our clients.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/loans.gif" alt="Loans" class="stat-icon">
+                <h3>$3.5M+</h3>
+                <p>Education loans facilitated with competitive rates.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/globe.gif" alt="University Partnerships" class="stat-icon">
+                <h3>1500+</h3>
+                <p>University partnerships across the US.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/phone.gif" alt="Support" class="stat-icon">
+                <h3>24/7</h3>
+                <p>Support provided for pre- and post-arrival assistance.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/businessman.gif" alt="Experience" class="stat-icon">
+                <h3>20+</h3>
+                <p>Years of combined experience in education consulting.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/certificate.gif" alt="Scholarships" class="stat-icon">
+                <h3>90%</h3>
+                <p>Students secured scholarships or financial aid through our guidance.</p>
+            </div>
+            <div class="stat-item">
+                <img src="images/rating.gif" alt="Satisfaction" class="stat-icon">
+                <h3>4.9/5</h3>
+                <p>Average client satisfaction rating.</p>
+            </div>
+        </div>
+    </section>
     
-   
-    <section id="study-abroad" class="hidden">
-      <h2 class="section-heading">Study Destinations</h2>
-      <div class="section-content">
-          <p>Discover top destinations for your studies. Whether it's the bustling cities of Europe, the innovation hubs of North America, or the cultural richness of Asia, we've got you covered.</p>
-          <a href="#" class="button">Learn More</a>
-      </div>
-  </section>
-
   <section id="reviews" class="reviews">
     <h2 class="review-heading">What Our Students Say</h2>
     <div class="review-container">
         <div class="review-card active">
             <div class="stars">★★★★★</div>
             <h3>"A Life-Changing Experience!"</h3>
-            <p>Thanks to Hanu Edu, I was able to secure admission to my dream university. Their guidance throughout the process was invaluable.</p>
+            <p>The guidance I received from Hanu Edu was exceptional. From the very first counseling session to the final visa interview, they were with me every step of the way. Their in-depth knowledge of universities and programs ensured I applied to the right schools, and their feedback on my statement of purpose and essays was invaluable. Thanks to their support, I was accepted into Northeastern University for my MS in Data Science. I highly recommend Hanu Edu to anyone looking for reliable and professional assistance.</p>
             <p class="reviewer">
                 <img src="images/people-5.jpg" alt="Sarah K." />
-                - Sarah K., Canada
+                - Ravi Teja, Northeastern University
             </p>
         </div>
         <div class="review-card">
             <div class="stars">★★★★★</div>
             <h3>"Best Decision Ever!"</h3>
-            <p>Choosing Hanu Edu was the best decision I made. The team was approachable and always ready to help. Now I’m studying in my dream college!</p>
+            <p>
+                I cannot thank Hanu Edu enough for their dedication and expertise. They took the time to understand my career goals and provided tailored guidance throughout the application process. Their advice on financial aid applications helped me secure a partial scholarship, and their step-by-step support made the visa process stress-free. I am thrilled to have been accepted into the University of Illinois Urbana-Champaign for my MBA program, and I couldn’t have done it without Hanu Edu’s unwavering support.</p>
             <p class="reviewer">
-                <img src="images/people-6.jpg" alt="Raj P." />
-                - Raj P., India
+                <img src="images/people-6.jpg" alt="Swathi Reddy." />
+                - Swathi Reddy, University of Illinois
             </p>
         </div>
         <div class="review-card">
             <div class="stars">★★★★★</div>
             <h3>"Highly Recommended!"</h3>
-            <p>The personalized counseling sessions helped me narrow down my choices and focus on my goals. I am now studying in the UK, and I couldn’t be happier!</p>
+            <p> Hanu Edu has been a game-changer for me. Their meticulous approach to university research and application preparation ensured that I applied to programs perfectly aligned with my goals. The team was always available to answer my questions, no matter how small, and they made the daunting visa process seem effortless. Today, I am pursuing my MS in Mechanical Engineering at Purdue University, and I owe it all to the incredible team at Hanu Edu.</p>
             <p class="reviewer">
                 <img src="images/people-4.jpg" alt="James L." />
-                - James L., United Kingdom
+                - Vikram Goud, Purdue University
             </p>
         </div>
         <div class="review-card">
             <div class="stars">★★★★★</div>
             <h3>"Excellent Visa Support!"</h3>
-            <p>The visa process felt overwhelming, but Hanu Edu made it smooth and stress-free. I’m now pursuing my MBA in the USA!</p>
+            <p>
+                Hanu Edu made my dream of studying in the United States a reality. Their counselors were extremely knowledgeable and patient, guiding me through every stage of the process. From helping me shortlist universities to preparing me for interviews, their support was unmatched. Their financial aid guidance helped me manage my expenses effectively, and I am now pursuing my MS in Business Analytics at the University of Texas at Dallas. I wholeheartedly recommend Hanu Edu to anyone planning to study abroad.</p>
             <p class="reviewer">
                 <img src="images/people-1.jpg" alt="Priya M." />
-                - Priya M., United States
+                - Pallavi Rao, University of Texas
             </p>
         </div>
         <div class="review-card">
             <div class="stars">★★★★★</div>
             <h3>"Amazing Team!"</h3>
-            <p>The team at Hanu Edu is dedicated and supportive. Their pre-departure sessions prepared me for a seamless transition.</p>
+            <p>I was overwhelmed by the complexity of the admissions process, but Hanu Edu made it incredibly simple and straightforward. Their team’s insights and strategies were instrumental in helping me secure admission to Michigan State University for my MS in Electrical Engineering with a scholarship. They were always just a call away, ready to clarify any doubts. Hanu Edu truly cares about their students’ success, and I am so grateful for their support.</p>
             <p class="reviewer">
                 <img src="images/people-3.jpg" alt="Kevin T." />
-                - Kevin T., Australia
+                - Suresh Yadav, Michigan State University
             </p>
         </div>
-      
-     
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Making Dreams of Studying Abroad a Reality!"</h3>
+            <p>
+                Hanu Edu’s expertise and commitment are second to none. They took the time to understand my academic background and future aspirations, helping me craft a strong application for the University of Colorado Boulder. Their team also provided excellent visa interview preparation, which gave me the confidence to ace it. I am now pursuing my MS in Environmental Science, and I couldn’t be happier with the service I received. Thank you, Hanu Edu, for being such a dependable partner in my journey!</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Anusha Reddy, University of Colorado
+            </p>
+            
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Expert Guidance Every Step of the Way!"</h3>
+            <p>             
+             I had a fantastic experience with Hanu Edu. Their team is incredibly knowledgeable about U.S. universities and programs, and their recommendations were spot on. They worked tirelessly to ensure my application was top-notch, and their visa guidance was incredibly helpful. Thanks to their support, I am now pursuing my MS in Cybersecurity at the University of Maryland College Park. I strongly recommend Hanu Edu to anyone looking for a trustworthy and professional education consultant.</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Arjun Varma, University of Maryland
+            </p>
+            
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Incredible Support from Start to Finish!"</h3>
+            <p>
+            Choosing Hanu Edu was the best decision I made during my study abroad journey. Their counselors were incredibly supportive and went above and beyond to ensure I felt confident throughout the process. Their advice on university selection and their assistance with my application were invaluable. Thanks to them, I am now pursuing my MS in Biomedical Engineering at Rutgers University. I couldn’t have done it without Hanu Edu, and I will always be grateful for their guidance.</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Bhavana Rao, Rutgers  University
+            </p>
+            
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"A Journey That Transformed My Future!"</h3>
+            <p>
+                Hanu Edu was the key to my success in securing admission to the University of Pittsburgh for my MS in Artificial Intelligence. Their team was always patient, understanding, and proactive, making the entire process seamless. From drafting the perfect statement of purpose to preparing me for my visa interview, they left no stone unturned. Hanu Edu’s professionalism and commitment to their students are truly commendable, and I highly recommend them to all aspiring students.</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Karthik Reddy, University of Pittsburgh
+            </p>
+            
+        </div>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h3>"Seamless and Stress-Free Visa Assistance!"</h3>
+            <p>
+            I was completely lost when I started my study abroad journey, but Hanu Edu provided the clarity and guidance I needed. Their counselors helped me shortlist universities, refine my application, and even navigate the financial aid process. Thanks to their efforts, I secured admission to Syracuse University for my MS in Public Administration. Hanu Edu’s support didn’t end there—they even helped me with my pre-departure preparations. I am so thankful for their dedication and expertise.</p>
+            <p class="reviewer">
+                <img src="images/people-3.jpg" alt="Kevin T." />
+                - Lakshmi Prasanna, Syracuse  University
+            </p>
+            
+        </div>
     </div>
 </section>
 
   <section id="services" class="hidden">
-    <h2 class="section-heading">Our Services</h2>
+    <h2 class="review-heading">Our Services</h2>
     <div class="services-container">
         <div class="service-block">
-            <h3>Personalized Counseling</h3>
+            <h3 class="review-heading">Personalized Counseling</h3>
             <p>Get one-on-one guidance tailored to your academic and career goals.</p>
             <a href="#" class="button">Explore Counseling</a>
         </div>
         <div class="service-block">
-            <h3>Application Assistance</h3>
+            <h3 class="review-heading">Application Assistance</h3>
             <p>Let us help you craft the perfect application to secure admission to your dream university.</p>
             <a href="#" class="button">Start Application</a>
         </div>
         <div class="service-block">
             
-            <h3>Visa Guidance</h3>
+            <h3 class="review-heading">Visa Guidance</h3>
             <p>Navigate the complex visa process with our expert guidance.</p>
             <a href="#" class="button">Get Visa Help</a>
         </div>
         <div class="service-block">
-            <h3>Pre-Departure Support</h3>
+            <h3 class="review-heading">Pre-Departure Support</h3>
             <p>Prepare for your journey with cultural, financial, and practical advice.</p>
             <a href="#" class="button">Prepare Now</a>
         </div>
         <div class="service-block">
-            <h3>Financial Aid Assistance</h3>
+            <h3 class="review-heading">Financial Aid Assistance</h3>
             <p>We help you secure loans, grants, and scholarships to fund your education journey.</p>
             <a href="#" class="button">Explore Options</a>
         </div>
         <div class="service-block">
-            <h3>Language Test Prep</h3>
+            <h3 class="review-heading">Language Test Prep</h3>
             <p>Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
             <a href="#" class="button">Start Preparing</a>
         </div>
         <div class="service-block">
-            <h3>Career Development</h3>
+            <h3 class="review-heading">Career Development</h3>
             <p>Access internships, networking opportunities, and career guidance to build your future.</p>
             <a href="#" class="button">Boost Your Career</a>
         </div>
@@ -756,7 +947,7 @@ padding: 1rem 2rem;
     </div>
     <div class="service-block"id="about">
 
-      <h2 class="section-heading">About Hanu</h2>
+      <h2 class="review-heading">About Hanu</h2>
       <div class="section-content">
           <p>Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
           <a href="about.html" class="button">Read More</a>
@@ -1014,7 +1205,7 @@ function autoScrollReviews() {
 
 // Start auto-scrolling
 function startAutoScroll() {
-    autoScrollInterval = setInterval(autoScrollReviews, 1500);
+    autoScrollInterval = setInterval(autoScrollReviews, 3000);
 }
 
 // Stop auto-scrolling
@@ -1047,7 +1238,7 @@ startAutoScroll();
         },
         {
             question: "When do you plan to start your studies?",
-            options: ["2024", "2025", "Later"]
+            options: ["2025", "2026", "Later"]
         }
     ];
 
@@ -1132,44 +1323,44 @@ startAutoScroll();
     });
     const messages = [
     { text: "Raj has been accepted into the prestigious Harvard University!", image: "images/notifications_avatar/boy1.png" },
-    { text: "John has successfully applied for a transfer to Stanford University.", image: "images/notifications_avatar/boy1.png" },
-    { text: "An impressive 42 individuals sought career guidance at MIT today!",image: "images/notifications_avatar/boy1.png" },
-    { text: "Sara has proudly submitted her application to Yale University!",image: "images/notifications_avatar/girl1.png" },
-    { text: "Emily is overjoyed to be accepted into UC Berkeley!",image: "images/notifications_avatar/girl1.png" },
-    { text: "Michael has received an offer letter from Princeton University—congratulations!", image: "images/notifications_avatar/boy1.png" },
-    { text: "Anna's transfer request to Columbia University has been approved!", image: "images/notifications_avatar/girl1.png"},
-    { text: "James has completed his career guidance application at USC.", image: "images/notifications_avatar/boy1.png" },
-    { text: "Olivia is putting the final touches on her Duke University application!",  image: "images/notifications_avatar/girl1.png"},
-    { text: "Lucas has officially applied for a transfer to the University of Chicago.",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Sophia is excited about her upcoming career guidance appointment at UCLA.",  image: "images/notifications_avatar/girl1.png" },
-    { text: "Liam has successfully submitted his application to New York University.",  image: "images/notifications_avatar/boy1.png"},
-    { text: "Isabella has received a transfer offer from the University of Pennsylvania!", image: "images/notifications_avatar/girl1.png" },
-    { text: "Aiden has completed his transfer request to UCLA.", image: "images/notifications_avatar/boy1.png" },
-    { text: "Ethan has been selected for a career guidance session at Northwestern University.", image: "images/notifications_avatar/boy1.png" },
-    { text: "Mason is celebrating his acceptance to the University of Michigan!",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Zoe has submitted her application to the University of Texas at Austin.",  image: "images/notifications_avatar/girl1.png" },
-    { text: "David has applied for a transfer to the University of Virginia.",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Charlotte is eagerly awaiting her transfer approval to Georgia Tech.", image: "images/notifications_avatar/girl1.png" },
-    { text: "Jacob is thrilled to receive an offer from the University of Washington.", image: "images/notifications_avatar/boy1.png" },
-    { text: "Ella has applied for career guidance at USC today.", image: "images/notifications_avatar/girl1.png" },
-    { text: "Amelia is working diligently on her application to Northwestern University.", image: "images/notifications_avatar/girl1.png"},
-    { text: "Mia has successfully completed her UCLA application.", image: "images/notifications_avatar/girl1.png"},
-    { text: "Benjamin has been invited to an exclusive career guidance session.",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Chloe is excited to submit her application to the University of Florida.",  image: "images/notifications_avatar/girl1.png" },
-    { text: "William's transfer to the University of California has been officially approved!",  image: "images/notifications_avatar/boy1.png"},
-    { text: "Oliver has confirmed his career guidance session with Brown University.", image: "images/notifications_avatar/boy1.png"},
-    { text: "Grace has proudly submitted her application to the University of Miami.", image: "images/notifications_avatar/girl1.png" },
-    { text: "Sebastian has completed his transfer form for the University of Wisconsin.",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Lily has received a career guidance invitation from Cornell University.", image: "images/notifications_avatar/girl1.png" },
-    { text: "Jack is excited to start his journey at Georgetown University!",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Ava has successfully submitted her application to Michigan State University.",  image: "images/notifications_avatar/girl1.png" },
-    { text: "Henry has scheduled his career guidance appointment at the University of North Carolina.",  image: "images/notifications_avatar/boy1.png" },
-    { text: "Amos has applied for a transfer to UC Berkeley.",  image: "images/notifications_avatar/girl1.png"},
-    { text: "Leo has successfully attended his career guidance appointment.", image: "images/notifications_avatar/boy1.png" },
-    { text: "Ella is finalizing her application to the University of Southern California.", image: "images/notifications_avatar/girl1.png"},
-    { text: "Sebastian has received an offer from Vanderbilt University—what a milestone!", image: "images/notifications_avatar/boy1.png" },
-    { text: "Sophie is ready to transfer to Ohio State University.", image: "images/notifications_avatar/girl1.png"},
-    { text: "Charlotte's career guidance request has been approved by Penn State.", image: "images/notifications_avatar/girl1.png" }
+    { text: "Arjun has successfully applied for a transfer to Stanford University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "An impressive 42 individuals sought career guidance at MIT today!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Priya has proudly submitted her application to Yale University!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Meera is overjoyed to be accepted into UC Berkeley!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Amit has received an offer letter from Princeton University—congratulations!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Anjali's transfer request to Columbia University has been approved!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Vikram has completed his career guidance application at USC.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Sanya is putting the final touches on her Duke University application!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Rohan has officially applied for a transfer to the University of Chicago.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Neha is excited about her upcoming career guidance appointment at UCLA.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Karan has successfully submitted his application to New York University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Ishita has received a transfer offer from the University of Pennsylvania!", image: "images/notifications_avatar/girl1.png" },
+    { text: "Akash has completed his transfer request to UCLA.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Rajat has been selected for a career guidance session at Northwestern University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Manish is celebrating his acceptance to the University of Michigan!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Riya has submitted her application to the University of Texas at Austin.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Aditya has applied for a transfer to the University of Virginia.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Shreya is eagerly awaiting her transfer approval to Georgia Tech.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Abhay is thrilled to receive an offer from the University of Washington.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Pooja has applied for career guidance at USC today.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Ananya is working diligently on her application to Northwestern University.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Mira has successfully completed her UCLA application.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Kabir has been invited to an exclusive career guidance session.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Tanya is excited to submit her application to the University of Florida.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Dev's transfer to the University of California has been officially approved!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Rishi has confirmed his career guidance session with Brown University.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Anusha has proudly submitted her application to the University of Miami.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Siddharth has completed his transfer form for the University of Wisconsin.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Naina has received a career guidance invitation from Cornell University.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Armaan is excited to start his journey at Georgetown University!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Aarti has successfully submitted her application to Michigan State University.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Harsh has scheduled his career guidance appointment at the University of North Carolina.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Tanvi has applied for a transfer to UC Berkeley.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Ayaan has successfully attended his career guidance appointment.", image: "images/notifications_avatar/boy1.png" },
+    { text: "Isha is finalizing her application to the University of Southern California.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Siddharth has received an offer from Vanderbilt University—what a milestone!", image: "images/notifications_avatar/boy1.png" },
+    { text: "Radhika is ready to transfer to Ohio State University.", image: "images/notifications_avatar/girl1.png" },
+    { text: "Shivani's career guidance request has been approved by Penn State.", image: "images/notifications_avatar/girl1.png" }
 ];
 
 
