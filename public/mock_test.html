@@ -6,57 +6,54 @@
     <title>Mock Test</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            height: 100%;
             font-family: 'Poppins', sans-serif;
-            background: #f4f4f4;
+            background: #f9f9f9;
             color: #333;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #004d99;
+            color: white;
+            text-align: center;
+            padding: 1rem;
         }
 
         .container {
-            width: 100%;
-            max-width: 500px;
+            max-width: 800px;
+            margin: 2rem auto;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .timer {
+            text-align: right;
             font-size: 1rem;
-            font-weight: 500;
             margin-bottom: 1rem;
             color: #004d99;
-            text-align: right;
         }
 
         .question {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
             color: #004d99;
-        }
-
-        .options {
-            margin-bottom: 1rem;
         }
 
         .options label {
-            display: flex;
-            align-items: center;
-            margin: 0.5rem 0;
-            padding: 0.8rem;
-            background: #fff;
-            color: #004d99;
+            display: block;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
             border: 1px solid #004d99;
-            border-radius: 8px;
+            border-radius: 5px;
+            background: white;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: all 0.3s;
         }
 
         .options label:hover {
@@ -64,10 +61,36 @@
             color: white;
         }
 
-        .options input[type="radio"] {
+        .options input {
             margin-right: 10px;
         }
 
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .navigation button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background: #004d99;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .navigation button:hover {
+            background: #ffd700;
+            color: #004d99;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+  
         .button {
             display: block;
             width: 100%;
@@ -87,30 +110,25 @@
             background-color: #ffd700;
             color: #004d99;
         }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .question {
-                font-size: 1.2rem;
-            }
-
-            .button {
-                font-size: 0.9rem;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="timer" class="timer">Time Left: 10:00</div>
-        <div id="question-container">
-            <!-- Questions will dynamically appear here -->
+     <header>
+        <h1>Mock Test</h1>
+    </header>
+        <div class="container">
+        <div class="timer" id="timer">Time Left: 10:00</div>
+        <div class="question-number" id="question-number">Question 1</div>
+        <div class="question" id="question-container">Loading question...</div>
+        <div class="options" id="options"></div>
+        <div class="navigation">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next</button>
         </div>
-        <button id="next-btn" class="button" style="display: none;">Next</button>
     </div>
+    <footer>
+        <p>&copy; 2024 Mock Test. All Rights Reserved.</p>
+    </footer>
 
 
     <script>
@@ -201,15 +219,20 @@
         { question: "Solve: What is the product of 7 and 8?", options: ["56", "64", "48", "72"], answer: "56" }
     ]
 };
+
 const selectedTest = localStorage.getItem('selectedTest') || 'TOEFL';
         const questions = testQuestions[selectedTest];
         let currentQuestionIndex = 0;
         let score = 0;
         let timeLeft = 10 * 60; // 10 minutes in seconds
+        let selectedAnswers = {}; // Store selected answers
 
+        const questionNumberElement = document.getElementById("question-number");
         const questionContainer = document.getElementById("question-container");
-        const nextBtn = document.getElementById("next-btn");
+        const optionsContainer = document.getElementById("options");
         const timerElement = document.getElementById("timer");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
 
         function updateTimer() {
             const minutes = Math.floor(timeLeft / 60);
@@ -229,55 +252,61 @@ const selectedTest = localStorage.getItem('selectedTest') || 'TOEFL';
 
         function displayQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
-            questionContainer.innerHTML = `
-                <div class="question">${currentQuestion.question}</div>
-                <div class="options">
-                    ${currentQuestion.options.map(option => `
-                        <label>
-                            <input type="radio" name="option" value="${option}"> ${option}
-                        </label>
-                    `).join('')}
-                </div>
-            `;
-            nextBtn.style.display = "none";
+            questionNumberElement.textContent = `Question ${currentQuestionIndex + 1}`;
+            questionContainer.textContent = currentQuestion.question;
+
+            optionsContainer.innerHTML = currentQuestion.options
+                .map(option => `
+                    <label>
+                        <input type="radio" name="option" value="${option}" ${selectedAnswers[currentQuestionIndex] === option ? 'checked' : ''}> ${option}
+                    </label>
+                `)
+                .join("");
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? "Finish" : "Next";
         }
 
-        questionContainer.addEventListener("change", () => {
-            nextBtn.style.display = "block";
+        prevBtn.addEventListener("click", () => {
+            if (currentQuestionIndex > 0) {
+                saveAnswer();
+                currentQuestionIndex--;
+                displayQuestion();
+            }
         });
 
         nextBtn.addEventListener("click", () => {
             const selectedOption = document.querySelector('input[name="option"]:checked');
-            if (selectedOption) {
-                const answer = selectedOption.value;
-                if (answer === questions[currentQuestionIndex].answer) score++;
-            }
+       
 
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
+            saveAnswer();
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
                 displayQuestion();
             } else {
                 endTest();
             }
         });
-      
+
+        function saveAnswer() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (selectedOption) {
+                selectedAnswers[currentQuestionIndex] = selectedOption.value;
+            }
+        }
+
         function endTest() {
             clearInterval(timerInterval);
-            localStorage.removeItem("timeLeft");
-            questionContainer.innerHTML = `<div class="question">Test completed! Your score is ${score} / ${testQuestions[selectedTest].length}.</div>`;
+            questionNumberElement.textContent = "Test Completed";
+            questionContainer.innerHTML = `<div class="question">Your score is ${score} / ${questions.length}.</div>`;
+            optionsContainer.innerHTML = "";
+            prevBtn.style.display = "none";
             nextBtn.style.display = "none";
         }
 
         displayQuestion();
 
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                clearInterval(timerInterval);
-                alert("You switched tabs or exited! The test has ended.");
-                endTest();
-            }
-        });    
- 
     </script>
 </body>
 </html>

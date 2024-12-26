@@ -3,68 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Test</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Choose Your Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
             color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            line-height: 1.6;
         }
 
-        .container {
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            padding: 1rem;
             text-align: center;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .heading {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+        .about-section {
+            font-family: 'Poppins', sans-serif;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-section h1 {
+            font-size: 2.5rem;
             color: #004d99;
+            margin-bottom: 1rem;
+        }
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: #004d99;
+            margin-bottom: 1rem;
+        }
+        .about-section h3 {
+            font-size: 2.5rem;
+            color: #004d99;
+            margin-bottom: 1rem;
+        }
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            font-size: 1.1rem;
+            color: #000000;
+            line-height: 1.8;
         }
 
-        .button {
-            display: block;
-            margin: 1rem auto;
-            padding: 1rem 2rem;
-            font-size: 1rem;
+        .offerings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .offering:hover {
+            transform: translateY(-10px);
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        .offering h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
             background-color: #004d99;
             color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            border-radius: 30px;
             text-decoration: none;
-            width: 80%;
-            text-align: center;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
         }
 
-        .button:hover {
+        .cta-button:hover {
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        footer {
+            background-color: rgba(255, 255, 255);
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            font-family: 'Poppins', sans-serif;
+         
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .logo img {
+            width: 10%;
+            max-width: 40px;
+            height: auto;
+        }
+
+        .header-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .header-link:hover {
+            cursor: pointer;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .service-block {
+            flex: 1 1 calc(33.333% - 20px);
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .service-block:hover {
+            transform: scale(1.05);
+        }
+
+        .service-block h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-block p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-block .button {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            color: white;
+            background-color: #004d99;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-block .button:hover {
             background-color: #ffd700;
             color: #004d99;
+        }
+
+        @media (max-width: 768px) {
+            .service-block {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-block {
+                flex: 1 1 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="heading">Select Your Test</div>
-        <a href="mock_test.html?test=TOEFL" class="button">TOEFL</a>
-        <a href="mock_test.html?test=IELTS" class="button">IELTS</a>
-        <a href="mock_test.html?test=PTE" class="button">PTE</a>
-        <a href="mock_test.html?test=GRE" class="button">GRE</a>
-        <a href="mock_test.html?test=GMAT" class="button">GMAT</a>
-    </div>
+    <header>
+        <a href="index.html" class="header-link">
+            <div class="logo">
+                <img src="images/logo.png" alt="Hanu Logo" class="logo-image" />
+                Mock Test
+            </div>
+        </a>
+    </header>
+
+    <section class="about-section">
+        <h1>About Mock Test</h1>
+        <p>Hanu conducts concise 10-minute mock tests to simulate real exam scenarios and enhance preparedness.There is no negative marking</p>
+
+        <section id="services">
+            <h2 class="review-heading">Our Services</h2>
+            <div class="services-container">
+                <div class="service-block">
+                    <h3>TOEFL</h3>
+                    <p>Measures English proficiency for academic purposes, focusing on reading, listening, speaking, and writing skills.</p>
+                    <a href="mock_test.html?test=TOEFL" class="button">START TOEFL</a>
+                </div>
+                <div class="service-block">
+                    <h3>IELETS</h3>
+                    <p>International English test evaluating listening, reading, writing, and speaking for academic or migration needs.</p>
+                    <a href="mock_test.html?test=IELTS" class="button">START IELTS</a>
+                </div>
+                <div class="service-block">
+                    <h3>PTE</h3>
+                    <p>Computer-based English test assessing practical communication skills needed for study, work, or immigration globally.</p>
+                    <a href="mock_test.html?test=PTE" class="button">START PTE</a>
+                </div>
+                <div class="service-block">
+                    <h3>GRE</h3>
+                    <p>Graduate admissions test measuring verbal reasoning, quantitative reasoning, and analytical writing for advanced education.</p>
+                    <a href="mock_test.html?test=GRE" class="button">START GRE</a>
+                </div>
+                <div class="service-block">
+                    <h3>GMAT</h3>
+                    <p>Standardized test for business schools assessing analytical, quantitative, verbal, and integrated reasoning abilities.</p>
+                    <a href="mock_test.html?test=GMAT" class="button">START GMAT</a>
+                </div>
+            </div>
+        </section>
+    </section>
     <script>
         // Automatically detect and set the selected test on the mock test page
         function redirectToMockTest() {
@@ -72,18 +239,51 @@
             const selectedTest = params.get('test') || 'TOEFL';
             if (selectedTest) {
                 localStorage.setItem('selectedTest', selectedTest);
-                window.location.href = `mock_test.html`;
+                window.location.href = `mock_test.html?test=${selectedTest}`;
             }
         }
-
+    
         document.querySelectorAll('.button').forEach(button => {
             button.addEventListener('click', event => {
                 event.preventDefault();
                 const selectedTest = new URL(event.target.href).searchParams.get('test');
                 localStorage.setItem('selectedTest', selectedTest);
-                window.location.href = `mock_test.html`;
+                window.location.href = `mock_test.html?test=${selectedTest}`;
             });
         });
     </script>
+    <footer>
+        <p>&copy; 2024 Hanu. All Rights Reserved.</p>
+        <div class="social-media-links">
+            <a href="https://wa.me/17046522396" target="_blank" class="social-link whatsapp">
+                <img src="images/whatsapp.gif" alt="WhatsApp" />
+            </a>
+            <a href="https://t.me/+7sELas_gyp9kYmUx" target="_blank" class="social-link telegram">
+                <img src="images/telegram.gif" alt="Telegram" />
+            </a>
+            <a href="https://www.instagram.com/hanu_edu" target="_blank" class="social-link instagram">
+                <img src="images/instagram.gif" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61569985835293" target="_blank" class="social-link instagram">
+                <img src="images/facebook.gif" alt="Facebook" />
+            </a>
+        </div>
+        <style>
+            .social-media-links {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            .social-link img {
+                width: 24px;
+                height: 24px;
+                transition: transform 0.3s ease;
+            }
+            .social-link img:hover {
+                transform: scale(1.2);
+            }
+        </style>
+    </footer>
 </body>
 </html>
