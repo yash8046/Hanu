@@ -280,7 +280,11 @@ const selectedTest = localStorage.getItem('selectedTest') || 'TOEFL';
        
 
             saveAnswer();
-
+ // Check if the selected answer is correct
+ const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption.value === currentQuestion.answer) {
+        score++;
+    }
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
                 displayQuestion();
