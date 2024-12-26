@@ -236,16 +236,24 @@
 
         document.getElementById("studyAbroadForm").addEventListener("submit", async function (event) {
     event.preventDefault();
+    const questionnaireData = JSON.parse(localStorage.getItem('questionnaireResponses')) || {};
     const countryCode = document.getElementById('countryCode').value;
         const Mobile = document.getElementById('userMobile').value;
         const userMobile = `${countryCode}${Mobile}`;
-
+ 
+        function generateApplicationNumber() {
+  return Math.floor(10000000 + Math.random() * 90000000);
+}
+ const applicationNumber = generateApplicationNumber();
+        console.log(localStorage.getItem('questionnaireResponses'));
     const formData = {
+        applicationNumber,
         userName: document.getElementById("userName").value,
         userMobile,
         userEmail: document.getElementById("userEmail").value,
         studyLocation: document.getElementById("studyLocation").value,
         degreeType: document.getElementById("degreeType").value,
+        questionnaireResponses: questionnaireData
     };
 
     try {

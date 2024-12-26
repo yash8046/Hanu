@@ -15,14 +15,19 @@ const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/T07Q24E0WF9/B085XQF9
 
 // POST route to handle sending messages to Slack
 app.post('/api/sendSlackMessage', async (req, res) => {
-    const { userName, userMobile, userEmail, studyLocation, degreeType } = req.body;
+    const {applicationNumber, userName, userMobile, userEmail, studyLocation, degreeType,questionnaireResponses, } = req.body;
 
     const message = `New Study Abroad Application:
+        Application Number: ${applicationNumber}
+
         Name: ${userName}
         Mobile: ${userMobile}
         Email: ${userEmail}
         Study Location: ${studyLocation}
-        Degree Type: ${degreeType}`;
+        Degree Type: ${degreeType}
+        Questionnaire Responses:
+         ${JSON.stringify(questionnaireResponses, null, 2)}
+        `;
 
     try {
         const response = await axios.post(SLACK_WEBHOOK_URL, { text: message });

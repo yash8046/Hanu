@@ -726,7 +726,7 @@ padding: 1rem 2rem;
             <a href="#home">College Finder</a>
             <a href="#study-abroad">Track Application</a>
             <a href="#services">Services</a>
-            <a href="#visa-help">Mock Test</a>
+            <a href="#mock_test" id="mock_test">Mock Test</a>
             <a href="#about">About Us</a>
             <a href="#apply" id="apply-button">Contact Us</a>
         </div>
@@ -1282,18 +1282,15 @@ startAutoScroll();
         progressBar.style.width = ((index + 1) / questions.length) * 100 + "%";
     }
 
-    applyButton.addEventListener("click", () => {
+    applyButton2.addEventListener("click", () => {
         overlay.style.display = "block";
         questionnaire.style.display = "block";
         currentQuestion = 0;
         showQuestion(currentQuestion);
     });
 
-    applyButton2.addEventListener("click", () => {
-        overlay.style.display = "block";
-        questionnaire.style.display = "block";
-        currentQuestion = 0;
-        showQuestion(currentQuestion);
+    mock_test.addEventListener("click", () => {
+        window.location.href = "choose_test.html";
     });
 
     nextButton.addEventListener("click", () => {

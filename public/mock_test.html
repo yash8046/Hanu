@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .timer {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #004d99;
+            text-align: right;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #004d99;
+        }
+
+        .options {
+            margin-bottom: 1rem;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            background: #fff;
+            color: #004d99;
+            border: 1px solid #004d99;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .options label:hover {
+            background: #004d99;
+            color: white;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            font-size: 1rem;
+            background-color: #004d99;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ffd700;
+            color: #004d99;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .question {
+                font-size: 1.2rem;
+            }
+
+            .button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="timer" class="timer">Time Left: 10:00</div>
+        <div id="question-container">
+            <!-- Questions will dynamically appear here -->
+        </div>
+        <button id="next-btn" class="button" style="display: none;">Next</button>
+    </div>
+
+
+    <script>
+        const testQuestions = {
+    TOEFL: [
+        { question: "What is the synonym of 'enhance'?", options: ["Improve", "Destroy", "Limit", "Lose"], answer: "Improve" },
+        { question: "The word 'ubiquitous' means?", options: ["Rare", "Everywhere", "Tiny", "Expensive"], answer: "Everywhere" },
+        { question: "Choose the correct sentence:", options: ["He go to school.", "He goes to school.", "He going to school.", "He gone to school."], answer: "He goes to school." },
+        { question: "Identify the correct spelling:", options: ["Recieve", "Receive", "Recive", "Receeve"], answer: "Receive" },
+        { question: "What is the synonym of 'temporary'?", options: ["Ephemeral", "Eternal", "Lasting", "Durable"], answer: "Ephemeral" },
+        { question: "Choose the word closest in meaning to 'ambiguous':", options: ["Clear", "Vague", "Direct", "Transparent"], answer: "Vague" },
+        { question: "The word 'augment' means?", options: ["Decrease", "Increase", "Maintain", "Shorten"], answer: "Increase" },
+        { question: "Choose the correct usage of 'their':", options: ["Their going to school.", "They left their books.", "Their is a problem.", "Their is happy."], answer: "They left their books." },
+        { question: "What is the antonym of 'rare'?", options: ["Scarce", "Common", "Unusual", "Infrequent"], answer: "Common" },
+        { question: "Which sentence is grammatically correct?", options: ["She enjoy reading books.", "She enjoys reading books.", "She enjoyed reading books.", "She will enjoys reading books."], answer: "She enjoys reading books." },
+        { question: "The word 'cursory' means?", options: ["Thorough", "Hasty", "Detailed", "Comprehensive"], answer: "Hasty" },
+        { question: "What is the synonym of 'reliable'?", options: ["Trustworthy", "Uncertain", "Unreliable", "Doubtful"], answer: "Trustworthy" },
+        { question: "The word 'benevolent' means?", options: ["Kind", "Cruel", "Rude", "Selfish"], answer: "Kind" },
+        { question: "Choose the correct sentence:", options: ["He has gone to school.", "He have gone to school.", "He is go to school.", "He will gone to school."], answer: "He has gone to school." },
+        { question: "What is the antonym of 'difficult'?", options: ["Easy", "Hard", "Complicated", "Impossible"], answer: "Easy" }
+    ],
+    IELTS: [
+        { question: "What is the past tense of 'run'?", options: ["Run", "Ran", "Running", "Runned"], answer: "Ran" },
+        { question: "Which is the antonym of 'fast'?", options: ["Slow", "Quick", "Rapid", "Swift"], answer: "Slow" },
+        { question: "Identify the correct spelling:", options: ["Accomodate", "Accommodate", "Acommodate", "Acommadate"], answer: "Accommodate" },
+        { question: "What is the synonym of 'happy'?", options: ["Sad", "Joyful", "Angry", "Bored"], answer: "Joyful" },
+        { question: "Choose the correct usage of 'there':", options: ["Their going to the park.", "There is a problem.", "Where is their car?", "Their house is big."], answer: "There is a problem." },
+        { question: "What is the antonym of 'beautiful'?", options: ["Ugly", "Lovely", "Attractive", "Charming"], answer: "Ugly" },
+        { question: "The word 'generous' means?", options: ["Kind", "Selfish", "Greedy", "Rude"], answer: "Kind" },
+        { question: "What is the synonym of 'large'?", options: ["Huge", "Tiny", "Small", "Miniature"], answer: "Huge" },
+        { question: "What is the meaning of 'sparse'?", options: ["Dense", "Thick", "Scattered", "Heavy"], answer: "Scattered" },
+        { question: "Which sentence uses 'it's' correctly?", options: ["Its a nice day.", "It's raining outside.", "The dog wagged it's tail.", "Its running late."], answer: "It's raining outside." },
+        { question: "What is the synonym of 'diligent'?", options: ["Hardworking", "Lazy", "Careless", "Indifferent"], answer: "Hardworking" },
+        { question: "The word 'meticulous' means?", options: ["Careful", "Careless", "Hasty", "Imprecise"], answer: "Careful" },
+        { question: "Choose the antonym of 'bright':", options: ["Dull", "Shiny", "Vivid", "Glowing"], answer: "Dull" },
+        { question: "What is the antonym of 'new'?", options: ["Old", "Recent", "Modern", "Current"], answer: "Old" },
+        { question: "Identify the correct usage of 'your':", options: ["Your book is on the table.", "You're book is on the table.", "Your going to school.", "You're going to school."], answer: "Your book is on the table." }
+    ],
+    PTE: [
+        { question: "What is the synonym of 'quick'?", options: ["Fast", "Slow", "Steady", "Calm"], answer: "Fast" },
+        { question: "The word 'meticulous' means?", options: ["Careful", "Careless", "Imprecise", "Hasty"], answer: "Careful" },
+        { question: "What is the antonym of 'light'?", options: ["Heavy", "Bright", "Dark", "Weightless"], answer: "Heavy" },
+        { question: "What is the synonym of 'temporary'?", options: ["Ephemeral", "Eternal", "Permanent", "Indelible"], answer: "Ephemeral" },
+        { question: "What is the synonym of 'joyful'?", options: ["Happy", "Sad", "Angry", "Upset"], answer: "Happy" },
+        { question: "The word 'arduous' means?", options: ["Difficult", "Easy", "Simple", "Effortless"], answer: "Difficult" },
+        { question: "What is the meaning of 'benevolent'?", options: ["Kind", "Rude", "Selfish", "Cruel"], answer: "Kind" },
+        { question: "The word 'conundrum' means?", options: ["Puzzle", "Solution", "Answer", "Simple"], answer: "Puzzle" },
+        { question: "What is the antonym of 'scarce'?", options: ["Abundant", "Rare", "Limited", "Meager"], answer: "Abundant" },
+        { question: "Choose the correct usage of 'its':", options: ["Its tail is wagging.", "It's raining outside.", "Its a great day.", "It's my book."], answer: "Its tail is wagging." },
+        { question: "What is the antonym of 'sparse'?", options: ["Dense", "Scattered", "Thin", "Sparse"], answer: "Dense" },
+        { question: "What is the synonym of 'reliable'?", options: ["Trustworthy", "Untrustworthy", "Unreliable", "Doubtful"], answer: "Trustworthy" },
+        { question: "The word 'augment' means?", options: ["Increase", "Decrease", "Shorten", "Reduce"], answer: "Increase" },
+        { question: "Choose the correct spelling:", options: ["Separate", "Seperate", "Seperete", "Separet"], answer: "Separate" },
+        { question: "What is the synonym of 'lucid'?", options: ["Clear", "Confusing", "Dark", "Muddy"], answer: "Clear" }
+    ],
+    GRE: [
+        { question: "Solve for x: 2x + 3 = 7", options: ["2", "3", "4", "5"], answer: "2" },
+        { question: "Find the area of a circle with radius 5.", options: ["25π", "10π", "100π", "20π"], answer: "25π" },
+        { question: "The word 'gregarious' means?", options: ["Social", "Shy", "Silent", "Reserved"], answer: "Social" },
+        { question: "What is the synonym of 'sagacious'?", options: ["Wise", "Foolish", "Ignorant", "Unaware"], answer: "Wise" },
+        { question: "The word 'placate' means?", options: ["Pacify", "Irritate", "Provoke", "Agitate"], answer: "Pacify" },
+        { question: "Solve: If a train travels 180 miles in 3 hours, what is its average speed?", options: ["60 mph", "80 mph", "40 mph", "100 mph"], answer: "60 mph" },
+        { question: "What is the antonym of 'arduous'?", options: ["Easy", "Difficult", "Complicated", "Tiring"], answer: "Easy" },
+        { question: "The word 'prolific' means?", options: ["Unproductive", "Productive", "Destructive", "Limited"], answer: "Productive" },
+        { question: "Solve for y: 3y - 9 = 0", options: ["3", "6", "9", "12"], answer: "3" },
+        { question: "What is the meaning of 'enigma'?", options: ["Puzzle", "Solution", "Answer", "Explanation"], answer: "Puzzle" },
+        { question: "Solve: What is the sum of the angles of a triangle?", options: ["180°", "360°", "90°", "45°"], answer: "180°" },
+        { question: "Choose the synonym of 'brevity':", options: ["Shortness", "Length", "Complexity", "Duration"], answer: "Shortness" },
+        { question: "Find the perimeter of a rectangle with length 10 and width 5.", options: ["15", "30", "20", "40"], answer: "30" },
+        { question: "Solve: What is 25% of 80?", options: ["20", "25", "30", "40"], answer: "20" },
+        { question: "What is the value of 2^3?", options: ["6", "8", "4", "12"], answer: "8" }
+    ],
+    GMAT: [
+        { question: "What is the synonym of 'elaborate'?", options: ["Detailed", "Simple", "Quick", "Short"], answer: "Detailed" },
+        { question: "Solve for x: 5x - 10 = 0", options: ["2", "1", "5", "0"], answer: "2" },
+        { question: "The word 'coherent' means?", options: ["Clear", "Confused", "Ambiguous", "Uncertain"], answer: "Clear" },
+        { question: "Solve: If x = 10 and y = 5, find 3x + 2y.", options: ["40", "35", "50", "25"], answer: "40" },
+        { question: "What is the antonym of 'diligent'?", options: ["Lazy", "Hardworking", "Persistent", "Industrious"], answer: "Lazy" },
+        { question: "Solve for y: 2y + 4 = 14", options: ["7", "5", "6", "8"], answer: "5" },
+        { question: "What is the value of 12% of 150?", options: ["18", "15", "20", "12"], answer: "18" },
+        { question: "Solve: What is the square root of 144?", options: ["11", "12", "13", "14"], answer: "12" },
+        { question: "Find the area of a triangle with base 8 and height 5.", options: ["40", "20", "30", "15"], answer: "20" },
+        { question: "What is the meaning of 'precarious'?", options: ["Dangerous", "Safe", "Secure", "Certain"], answer: "Dangerous" },
+        { question: "Solve: What is the sum of the angles in a quadrilateral?", options: ["180°", "360°", "90°", "45°"], answer: "360°" },
+        { question: "Choose the word closest in meaning to 'prudent':", options: ["Careful", "Careless", "Hasty", "Reckless"], answer: "Careful" },
+        { question: "Solve: What is 30% of 200?", options: ["40", "60", "70", "80"], answer: "60" },
+        { question: "Find the perimeter of a square with side 6.", options: ["12", "24", "36", "18"], answer: "24" },
+        { question: "Solve: What is the product of 7 and 8?", options: ["56", "64", "48", "72"], answer: "56" }
+    ]
+};
+const selectedTest = localStorage.getItem('selectedTest') || 'TOEFL';
+        const questions = testQuestions[selectedTest];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 10 * 60; // 10 minutes in seconds
+
+        const questionContainer = document.getElementById("question-container");
+        const nextBtn = document.getElementById("next-btn");
+        const timerElement = document.getElementById("timer");
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+            if (timeLeft > 0) {
+                timeLeft--;
+            } else {
+                clearInterval(timerInterval);
+                alert("Time's up!");
+                endTest();
+            }
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionContainer.innerHTML = `
+                <div class="question">${currentQuestion.question}</div>
+                <div class="options">
+                    ${currentQuestion.options.map(option => `
+                        <label>
+                            <input type="radio" name="option" value="${option}"> ${option}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            nextBtn.style.display = "none";
+        }
+
+        questionContainer.addEventListener("change", () => {
+            nextBtn.style.display = "block";
+        });
+
+        nextBtn.addEventListener("click", () => {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (selectedOption) {
+                const answer = selectedOption.value;
+                if (answer === questions[currentQuestionIndex].answer) score++;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                endTest();
+            }
+        });
+      
+        function endTest() {
+            clearInterval(timerInterval);
+            localStorage.removeItem("timeLeft");
+            questionContainer.innerHTML = `<div class="question">Test completed! Your score is ${score} / ${testQuestions[selectedTest].length}.</div>`;
+            nextBtn.style.display = "none";
+        }
+
+        displayQuestion();
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                clearInterval(timerInterval);
+                alert("You switched tabs or exited! The test has ended.");
+                endTest();
+            }
+        });    
+ 
+    </script>
+</body>
+</html>
