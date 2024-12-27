@@ -34,7 +34,16 @@ pointer-events: none;
   gap: 20px; /* Space between blocks */
   justify-content: space-between; /* Adjust alignment */
 }
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
 
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .user-details-modal {
   position: fixed;
