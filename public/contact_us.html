@@ -203,61 +203,76 @@
         </div>
     </section>
 
+    <div id="custom-alert">
+        <div class="custom-alert-content">
+            <p id="custom-alert-message"></p>
+            <button id="custom-alert-close">OK</button>
+        </div>
+    </div>
     <footer>
         <p>&copy; 2024 Hanu Edu. All Rights Reserved.</p>
     </footer>
     <script>
-           function showCustomAlert(message) {
-            const alertMessage = document.getElementById("custom-alert-message");
-            const customAlert = document.getElementById("custom-alert");
-            const closeButton = document.getElementById("custom-alert-close");
+     function showCustomAlert(message) {
+      const alertMessage = document.getElementById("custom-alert-message");
+      const customAlert = document.getElementById("custom-alert");
+      const closeButton = document.getElementById("custom-alert-close");
 
-            alertMessage.textContent = message;
-            customAlert.style.display = "flex";
+      if (!alertMessage || !customAlert || !closeButton) {
+        // If your alert elements aren't on this page, you could fallback to alert():
+        alert(message);
+        return;
+      }
 
-            closeButton.onclick = function () {
-                customAlert.style.display = "none";
-                window.location.href = "index.html"; 
-            };
-        }
-        document.getElementById("submit").addEventListener("submit", async function (event) {
-            event.preventDefault();
-        const formData = {
-        
+      alertMessage.textContent = message;
+      customAlert.style.display = "flex";
+
+      closeButton.onclick = function () {
+        customAlert.style.display = "none";
+        window.location.href = "index.html";
+      };
+    }
+
+    // Attach a submit event listener to the FORM (not the button)
+    document.querySelector(".contact-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      // Build the data from the form fields
+      const formData = {
         userName: document.getElementById("userName").value,
         userEmail: document.getElementById("userEmail").value,
         Message: document.getElementById("Message").value,
-    };
+      };
 
-    try {
-        const response = await fetch('https://hanu-liart.vercel.app/api/ContactUS', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+      try {
+        const response = await fetch('https://hanu-liart.vercel.app/api/contactUS', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
         });
 
-        let data;
         if (response.ok) {
-            try {
-                data = await response.json();
-            } catch (e) {
-                throw new Error('Invalid JSON response from server');
-            }
+          let data;
+          try {
+            data = await response.json();
+          } catch (e) {
+            throw new Error('Invalid JSON response from server');
+          }
 
-            if (data.success) {
-                showCustomAlert("Your form has been submitted successfully!");
-            } else {
-                showCustomAlert(`Error: ${data.message}`);
-            }
+          if (data.success) {
+            showCustomAlert("Your form has been submitted successfully!");
+          } else {
+            showCustomAlert(`Error: ${data.message}`);
+          }
         } else {
-            const errorText = await response.text();
-            throw new Error(`Error: ${response.status}. Message: ${errorText}`);
+          const errorText = await response.text();
+          throw new Error(`Error: ${response.status}. Message: ${errorText}`);
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error:', error.message);
         showCustomAlert(`Failed to send message: ${error.message}`);
-    }
-});
+      }
+    });
 
     </script>
 </body>
