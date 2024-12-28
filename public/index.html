@@ -7,7 +7,6 @@
     <div id="root"></div>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
 <script src="https://files.bpcontent.cloud/2024/12/20/08/20241220083230-XD7950J5.js"></script>
 <script>
@@ -22,15 +21,75 @@
     
     <style>
 
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover;
-        }
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: scroll; /* Change from fixed to scroll */
+    
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+}
 
+@media (max-width: 1024px) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+@media only screen and (min-device-pixel-ratio: 3), 
+       only screen and (min-resolution: 192dpi) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=2796&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+/* Large phones, such as iPhone 15 Pro Max in portrait mode */
+@media (max-width: 1290px) and (min-width: 768px) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1290&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+/* For devices with width 768px and smaller */
+@media (max-width: 768px) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+/* For devices with width 480px and smaller */
+@media (max-width: 480px) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=480&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+/* For devices with width 320px and smaller */
+@media (max-width: 320px) {
+    body {
+        background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=320&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
         header {
             background-color: rgba(0, 77, 153, 0.9);
             color: white;
@@ -173,6 +232,7 @@ padding: 1rem 2rem;
         .hero {
             
             height: 100px;
+            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -180,12 +240,13 @@ padding: 1rem 2rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
         .hero-section {
+        background: #0000000f;
         text-align: center;
-        background: rgba(0, 0, 0, 0.4);
         background-size: cover;
         padding: 50px 0;
         color: white;
     }
+    
         .hero h1 {
             font-size: 3rem;
         }
@@ -750,7 +811,7 @@ padding: 1rem 2rem;
 @media (min-width: 768px) {
     .stats-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Multi-column layout for larger screens */
-        gap: 2rem; /* Increased gap */
+        gap: 1rem; /* Increased gap */
         padding: 2rem;
         margin: 2rem auto;
         max-width: 1200px;
@@ -770,24 +831,82 @@ padding: 1rem 2rem;
     }
 }
 
+.animated-text {
+    display: inline-flex;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.animated-text span {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animated-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.animated-text span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.animated-text span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.animated-text span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.animated-text span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.animated-text span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+.animated-text span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+
+.animated-text span:nth-child(8) {
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
     </style>
    
 
 </head>
 <body>
-    <div class="scrolling-message">
+    <div class="scrolling-message hidden">
         <span>📣 Now accepting transfer applications! Apply today and secure your future. 🎓 48 hours left</span>
     </div>
 
     <nav>
-        <div class="logo">
+        <div class="logo hidden">
             <img src="images/logo.png" alt="Hanu Logo" class="logo-image" />
             Hanu
         </div>
         <button class="menu-toggle" id="menu-toggle">&#9776;</button>
-        <div class="nav-links" id="nav-links">
-            <button class="close-menu" id="close-menu">&times;</button>
+        <div class="nav-links hidden" id="nav-links">
+            <button class="close-menu hidden" id="close-menu">&times;</button>
             <a href="#home">College Finder</a>
             <a href="#study-abroad">Track Application</a>
             <a href="#services">Services</a>
@@ -800,24 +919,25 @@ padding: 1rem 2rem;
     <a href="https://wa.me/17046522396 " target="_blank" class="whatsapp-float">
         <img src="images/whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
     </a>
-<div class="hero-section">
+<div class="hero-section hidden">
     <div id="home">
-        <h1>Welcome to Your Study Abroad Journey</h1>
+        <h1 id="dynamic-text" class="fade-slide hidden">Welcome to Your Study Abroad Journey</h1>
+
     </div>
-    <div class="review-heading">
-        <div class="timer-description">
+    <div class="review-heading hidden">
+        <div class="timer-description hidden">
             Hurry! Free counseling offer ends soon:
         </div>
-        <div class="timer" id="countdown">00:00:00</div>
+        <div class="timer hidden" id="countdown">00:00:00</div>
     </div>
     <div class="apply-button-container">
-        <a href="#apply" class="apply-button" id=apply-button2>Apply Now</a>
+        <a href="#apply" class="apply-button hidden" id=apply-button2>Apply Now</a>
 </div>
     
     </div>
 
     <section>
-        <h2 class="review-heading hidden">Numbers That Speak for Our Success</h2>
+        <h2 id="dynamic-text"class="review-heading hidden fade-slide">Numbers That Speak for Our Success</h2>
         <div class="stats-container hidden">
             <div class="stat-item hidden">
                 <img src="images/graduation.gif" alt="Students" class="stat-icon hidden">
@@ -862,16 +982,16 @@ padding: 1rem 2rem;
         </div>
     </section>
     
-  <section id="reviews" class="reviews hidden">
-    <h2 class="review-heading">What Our Students Say</h2>
+  <section id="reviews" class="reviews hidden fade-slide">
+    <h2 id="dynamic-text"class="review-heading">What Our Students Say</h2>
     
     <div class="review-container">
         <div class="review-card active">
             <div class="stars">★★★★★</div>
             <h3 class="hidden">"A Life-Changing Experience!"</h3>
             <p class="hidden">The guidance I received from Hanu Edu was exceptional. From the very first counseling session to the final visa interview, they were with me every step of the way. Their in-depth knowledge of universities and programs ensured I applied to the right schools, and their feedback on my statement of purpose and essays was invaluable. Thanks to their support, I was accepted into Northeastern University for my MS in Data Science. I highly recommend Hanu Edu to anyone looking for reliable and professional assistance.</p>
-            <p class="reviewer">
-                <img src="images/people-1.jpg" alt="Ravi Teja" />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-1.jpg" alt="Ravi Teja" />
                 - Ravi Teja, Northeastern University
             </p>
         </div>
@@ -880,8 +1000,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Best Decision Ever!"</h3>
             <p class="hidden">
                 I cannot thank Hanu Edu enough for their dedication and expertise. They took the time to understand my career goals and provided tailored guidance throughout the application process. Their advice on financial aid applications helped me secure a partial scholarship, and their step-by-step support made the visa process stress-free. I am thrilled to have been accepted into the University of Illinois Urbana-Champaign for my MBA program, and I couldn’t have done it without Hanu Edu’s unwavering support.</p>
-            <p class="reviewer">
-                <img src="images/people-6.jpg" alt="Swathi Reddy." />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-6.jpg" alt="Swathi Reddy." />
                 - Swathi Reddy, University of Illinois
             </p>
         </div>
@@ -889,8 +1009,8 @@ padding: 1rem 2rem;
             <div class="stars">★★★★★</div>
             <h3 class="hidden">"Highly Recommended!"</h3>
             <p class="hidden"> Hanu Edu has been a game-changer for me. Their meticulous approach to university research and application preparation ensured that I applied to programs perfectly aligned with my goals. The team was always available to answer my questions, no matter how small, and they made the daunting visa process seem effortless. Today, I am pursuing my MS in Mechanical Engineering at Purdue University, and I owe it all to the incredible team at Hanu Edu.</p>
-            <p class="reviewer">
-                <img src="images/people-2.jpg" alt="Vikram Goud" />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-2.jpg" alt="Vikram Goud" />
                 - Vikram Goud, Purdue University
             </p>
         </div>
@@ -899,8 +1019,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Excellent Visa Support!"</h3>
             <p class="hidden">
                 Hanu Edu made my dream of studying in the United States a reality. Their counselors were extremely knowledgeable and patient, guiding me through every stage of the process. From helping me shortlist universities to preparing me for interviews, their support was unmatched. Their financial aid guidance helped me manage my expenses effectively, and I am now pursuing my MS in Business Analytics at the University of Texas at Dallas. I wholeheartedly recommend Hanu Edu to anyone planning to study abroad.</p>
-            <p class="reviewer">
-                <img src="images/people-7.jpg" alt="Priya M." />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-7.jpg" alt="Priya M." />
                 - Pallavi Rao, University of Texas
             </p>
         </div>
@@ -908,8 +1028,8 @@ padding: 1rem 2rem;
             <div class="stars">★★★★★</div>
             <h3 class="hidden">"Amazing Team!"</h3>
             <p class="hidden">I was overwhelmed by the complexity of the admissions process, but Hanu Edu made it incredibly simple and straightforward. Their team’s insights and strategies were instrumental in helping me secure admission to Michigan State University for my MS in Electrical Engineering with a scholarship. They were always just a call away, ready to clarify any doubts. Hanu Edu truly cares about their students’ success, and I am so grateful for their support.</p>
-            <p class="reviewer">
-                <img src="images/people-4.png" alt="Suresh Yadav" />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-4.png" alt="Suresh Yadav" />
                 - Suresh Yadav, Michigan State University
             </p>
         </div>
@@ -918,8 +1038,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Making Dreams of Studying Abroad a Reality!"</h3>
             <p class="hidden">
                 Hanu Edu’s expertise and commitment are second to none. They took the time to understand my academic background and future aspirations, helping me craft a strong application for the University of Colorado Boulder. Their team also provided excellent visa interview preparation, which gave me the confidence to ace it. I am now pursuing my MS in Environmental Science, and I couldn’t be happier with the service I received. Thank you, Hanu Edu, for being such a dependable partner in my journey!</p>
-            <p class="reviewer">
-                <img src="images/people-8.jpg" alt="Kevin T." />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-8.jpg" alt="Kevin T." />
                 - Anusha Reddy, University of Colorado
             </p>
             
@@ -929,8 +1049,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Expert Guidance Every Step of the Way!"</h3>
             <p class="hidden">             
              I had a fantastic experience with Hanu Edu. Their team is incredibly knowledgeable about U.S. universities and programs, and their recommendations were spot on. They worked tirelessly to ensure my application was top-notch, and their visa guidance was incredibly helpful. Thanks to their support, I am now pursuing my MS in Cybersecurity at the University of Maryland College Park. I strongly recommend Hanu Edu to anyone looking for a trustworthy and professional education consultant.</p>
-            <p class="reviewer">
-                <img src="images/people-5.jpeg" alt="Arjun Varma" />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-5.jpeg" alt="Arjun Varma" />
                 - Arjun Varma, University of Maryland
             </p>
             
@@ -940,8 +1060,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Incredible Support from Start to Finish!"</h3>
             <p class="hidden">
             Choosing Hanu Edu was the best decision I made during my study abroad journey. Their counselors were incredibly supportive and went above and beyond to ensure I felt confident throughout the process. Their advice on university selection and their assistance with my application were invaluable. Thanks to them, I am now pursuing my MS in Biomedical Engineering at Rutgers University. I couldn’t have done it without Hanu Edu, and I will always be grateful for their guidance.</p>
-            <p class="reviewer">
-                <img src="images/people-9.jpg" alt="Kevin T." />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-9.jpg" alt="Kevin T." />
                 - Bhavana Rao, Rutgers  University
             </p>
             
@@ -951,8 +1071,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"A Journey That Transformed My Future!"</h3>
             <p class="hidden">
                 Hanu Edu was the key to my success in securing admission to the University of Pittsburgh for my MS in Artificial Intelligence. Their team was always patient, understanding, and proactive, making the entire process seamless. From drafting the perfect statement of purpose to preparing me for my visa interview, they left no stone unturned. Hanu Edu’s professionalism and commitment to their students are truly commendable, and I highly recommend them to all aspiring students.</p>
-            <p class="reviewer">
-                <img src="images/people-3.jpg" alt="Karthik Reddy" />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-3.jpg" alt="Karthik Reddy" />
                 - Karthik Reddy, University of Pittsburgh
             </p>
             
@@ -962,8 +1082,8 @@ padding: 1rem 2rem;
             <h3 class="hidden">"Seamless and Stress-Free Visa Assistance!"</h3>
             <p class="hidden">
             I was completely lost when I started my study abroad journey, but Hanu Edu provided the clarity and guidance I needed. Their counselors helped me shortlist universities, refine my application, and even navigate the financial aid process. Thanks to their efforts, I secured admission to Syracuse University for my MS in Public Administration. Hanu Edu’s support didn’t end there—they even helped me with my pre-departure preparations. I am so thankful for their dedication and expertise.</p>
-            <p class="reviewer">
-                <img src="images/people-10.jpg" alt="Kevin T." />
+            <p class="reviewer hidden">
+                <img class="hidden" src="images/people-10.jpg" alt="Kevin T." />
                 - Lakshmi Prasanna, Syracuse  University
             </p>
             
@@ -972,77 +1092,77 @@ padding: 1rem 2rem;
 </section>
 
   <section id="services" class="hidden">
-    <h2 class="review-heading">Our Services</h2>
-    <div class="services-container">
-        <div class="service-block">
-            <h3 class="review-heading">Personalized Counseling</h3>
-            <p>Get one-on-one guidance tailored to your academic and career goals.</p>
-            <a href="#" class="button">Explore Counseling</a>
+    <h2 id="dynamic-text"class="review-heading hidden">Our Services</h2>
+    <div class="services-container hidden">
+        <div class="service-block hidden">
+            <h3 id="dynamic-text"  class="review-heading hidden">Personalized Counseling</h3>
+            <p class="hidden">Get one-on-one guidance tailored to your academic and career goals.</p>
+            <a href="#" class="button hidden">Explore Counseling</a>
         </div>
-        <div class="service-block">
-            <h3 class="review-heading">Application Assistance</h3>
-            <p>Let us help you craft the perfect application to secure admission to your dream university.</p>
-            <a href="#" class="button">Start Application</a>
+        <div class="service-block hidden">
+            <h3 id="dynamic-text" class="review-heading hidden">Application Assistance</h3>
+            <p class="hidden">Let us help you craft the perfect application to secure admission to your dream university.</p>
+            <a href="#" class="button hidden">Start Application</a>
         </div>
-        <div class="service-block">
+        <div class="service-block hidden">
             
-            <h3 class="review-heading">Visa Guidance</h3>
-            <p>Navigate the complex visa process with our expert guidance.</p>
-            <a href="#" class="button">Get Visa Help</a>
+            <h3 id="dynamic-text" class="review-heading hidden">Visa Guidance</h3>
+            <p class="hidden">Navigate the complex visa process with our expert guidance.</p>
+            <a href="#" class="button hidden">Get Visa Help</a>
         </div>
-        <div class="service-block">
-            <h3 class="review-heading">Pre-Departure Support</h3>
-            <p>Prepare for your journey with cultural, financial, and practical advice.</p>
-            <a href="#" class="button">Prepare Now</a>
+        <div class="service-block hidden">
+            <h3 id="dynamic-text" class="review-heading hidden">Pre-Departure Support</h3>
+            <p class="hidden">Prepare for your journey with cultural, financial, and practical advice.</p>
+            <a href="#" class="button hidden">Prepare Now</a>
         </div>
-        <div class="service-block">
-            <h3 class="review-heading">Financial Aid Assistance</h3>
-            <p>We help you secure loans, grants, and scholarships to fund your education journey.</p>
-            <a href="#" class="button">Explore Options</a>
+        <div class="service-block hidden">
+            <h3 id="dynamic-text" class="review-heading hidden">Financial Aid Assistance</h3>
+            <p class="hidden">We help you secure loans, grants, and scholarships to fund your education journey.</p>
+            <a href="#" class="button hidden">Explore Options</a>
         </div>
-        <div class="service-block">
-            <h3 class="review-heading">Language Test Prep</h3>
-            <p>Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
-            <a href="#" class="button">Start Preparing</a>
+        <div class="service-block hidden">
+            <h3 id="dynamic-text" class="review-heading hidden">Language Test Prep</h3>
+            <p class="hidden">Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
+            <a href="#" class="button hidden">Start Preparing</a>
         </div>
-        <div class="service-block">
-            <h3 class="review-heading">Career Development</h3>
-            <p>Access internships, networking opportunities, and career guidance to build your future.</p>
-            <a href="#" class="button">Boost Your Career</a>
+        <div class="service-block hidden">
+            <h3 id="dynamic-text" class="review-heading hidden">Career Development</h3>
+            <p class="hidden">Access internships, networking opportunities, and career guidance to build your future.</p>
+            <a href="#" class="button hidden">Boost Your Career</a>
         </div>
         
     </div>
-    <div class="service-block"id="about">
+    <div class="service-block hidden"id="about">
 
-      <h2 class="review-heading">About Hanu</h2>
-      <div class="section-content">
-          <p>Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
-          <a href="about.html" class="button">Read More</a>
+      <h2 id="dynamic-text" class="review-heading hidden">About Hanu</h2>
+      <div class="section-content hidden">
+          <p class="hidden">Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
+          <a href="about.html" class="button hidden">Read More</a>
       </div>
  
 </div>
 </section>
-<div id="popup" class="popup">
-    <button class="popup-close" onclick="closePopup()">&times;</button>
-    <img id="popupImage" class="popup-image" src="" alt="Profile">
+<div id="popup" class="popup hidden">
+    <button class="popup-close hidden" onclick="closePopup()">&times;</button>
+    <img id="popupImage" class="popup-image hidden" src="" alt="Profile">
     <div>
-        <div class="popup-header">Congrats !</div>
-        <div id="popupText" class="popup-content">Loading...</div>
+        <div class="popup-header hidden">Congrats !</div>
+        <div id="popupText" class="popup-content hidden">Loading...</div>
     </div>
 </div>
 <footer>
     <p>&copy; 2024 Hanu. All Rights Reserved.</p>
-    <div class="social-media-links">
-        <a href="https://wa.me/17046522396" target="_blank" class="social-link whatsapp">
+    <div class="social-media-links hidden">
+        <a href="https://wa.me/17046522396" target="_blank" class="social-link whatsapp hidden">
             <img src="images/whatsapp.png" alt="WhatsApp" />
         </a>
-        <a href="https://t.me/+7sELas_gyp9kYmUx" target="_blank" class="social-link telegram">
+        <a href="https://t.me/+7sELas_gyp9kYmUx" target="_blank" class="social-link telegram hidden">
             <img src="images/telegram.png" alt="Telegram" />
         </a>
-        <a href="https://www.instagram.com/hanu_edu" target="_blank" class="social-link instagram">
+        <a href="https://www.instagram.com/hanu_edu" target="_blank" class="social-link instagram hidden">
             <img src="images/instagram.png" alt="Instagram" />
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61569985835293" target="_blank" class="social-link instagram">
+        <a href="https://www.facebook.com/profile.php?id=61569985835293" target="_blank" class="social-link instagram hidden">
             <img src="images/facebook.png" alt="Facebook" />
         </a>
     </div>
@@ -1388,7 +1508,10 @@ startAutoScroll();
         });
         progressBar.style.width = ((index + 1) / questions.length) * 100 + "%";
     }
-
+   
+    applyButton.addEventListener("click", () => {
+        window.location.href = "contactUS.html"; 
+    });
     applyButton2.addEventListener("click", () => {
         overlay.style.display = "block";
         questionnaire.style.display = "block";
@@ -1522,6 +1645,66 @@ startAutoScroll();
     }
 
     startCountdown();
+
+
+const text = document.getElementById("dynamic-text");
+const words = text.textContent.split(" ");
+text.innerHTML = ""; // Clear original text
+
+words.forEach((word, index) => {
+    const span = document.createElement("span");
+    span.textContent = word;
+    span.style.opacity = 0;
+    span.style.display = "inline-block";
+    span.style.transition = `opacity 0.2s ease ${index * 0.2}s, transform 0.2s ease ${index * 0.2}s`;
+    span.style.transform = "translateY(20px)";
+    text.appendChild(span);
+    text.appendChild(document.createTextNode(" ")); // Add space between words
+
+    // Trigger animation
+    setTimeout(() => {
+        span.style.opacity = 1;
+        span.style.transform = "translateY(0)";
+    }, index * 1);
+});
+
+// Function to animate text
+function animateText(text) {
+    const words = text.textContent.split(" ");
+    text.innerHTML = ""; // Clear original text
+
+    words.forEach((word, index) => {
+        const span = document.createElement("span");
+        span.textContent = word;
+        span.style.opacity = 0;
+        span.style.display = "inline-block";
+        span.style.transition = `opacity 0.2s ease ${index * 0.2}s, transform 0.2s ease ${index * 0.2}s`;
+        span.style.transform = "translateY(20px)";
+        text.appendChild(span);
+        text.appendChild(document.createTextNode(" ")); // Add space between words
+
+        // Trigger animation
+        setTimeout(() => {
+            span.style.opacity = 1;
+            span.style.transform = "translateY(0)";
+        }, index * 200); // Delay of 200ms per word
+    });
+}
+
+// Intersection Observer to trigger animation when visible
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            animateText(entry.target);
+            observer.unobserve(entry.target); // Stop observing after animation starts
+        }
+    });
+},{ threshold: 0.5 });
+
+// Observe all elements with #dynamic-text
+const textElements = document.querySelectorAll("#dynamic-text");
+textElements.forEach((text) => observer.observe(text));
+
 </script>
 </body>
 </html>

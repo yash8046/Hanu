@@ -97,11 +97,10 @@
         }
 
         footer {
-            background-color: rgba(0, 38, 77, 0.9);
+            background-color: rgba(0, 77, 153, 0.9);
             color: white;
             text-align: center;
             padding: 1rem 0;
-            margin-top: 2rem;
         }
 
         #custom-alert {
@@ -245,7 +244,6 @@
   return Math.floor(10000000 + Math.random() * 90000000);
 }
  const applicationNumber = generateApplicationNumber();
-        console.log(localStorage.getItem('questionnaireResponses'));
     const formData = {
         applicationNumber,
         userName: document.getElementById("userName").value,
