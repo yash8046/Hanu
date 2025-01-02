@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Application - Hanu Edu</title>
+   
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(0, 38, 77, 0.9);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+            background-color: rgba(0, 77, 153, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffd700;
+            color: #00264d;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .tracking-container {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .tracking-container h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #004d99;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            padding: 0.8rem 2rem;
+            border: none;
+            background-color: #004d99;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        .tracking-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+
+        footer {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+        .faq-container .faq-question {
+    background-color: #004d99;
+    color: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.faq-container .faq-question:hover {
+    background-color: #ffd700;
+    color: #00264d;
+}
+
+
+.faq-container .faq-answer {
+    display: none;
+    padding: 1rem;
+    background-color: rgba(233, 236, 239, 0.8);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.faq-container .faq-answer.show {
+    display: block;
+}
+
+.faq-container .faq-answer,
+.faq-container .faq-question,
+.tracking-container h1,
+.form-group label,
+.form-group input,
+.form-group button,
+.nav-links a {
+    padding: 1rem; /* Adjust padding for elements with text */
+    font-family: 'Poppins', sans-serif; /* Ensure Poppins font is applied */
+
+}
+.faq-container {
+    padding: 2rem; /* Add space inside the container on all sides */
+}
+
+.faq-container .faq-question {
+    background-color: #004d99;
+    color: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem; /* Increased padding for the question */
+    font-size: 1rem;
+    font-weight: 400; /* Reduced font weight */
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 1rem; /* Space between questions */
+    transition: background-color 0.3s ease;
+}
+
+.faq-container .faq-question:hover {
+    background-color: #ffd700;
+    color: #00264d;
+}
+
+.faq-block {
+  flex: 1 1 calc(33.333% - 20px); /* 3 blocks per row */
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  font-family: 'Poppins', sans-serif;
+  margin: 30px;
+}
+
+.faq-block h2 {
+    color: #004d99;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hanu Edu</h1>
+    </header>
+
+
+    <div class="faq-block hidden fade-slide"id="faq">
+        <div class="faq-container">
+            <h2 id="dynamic-text">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-question">What services does Hanu Edu provide to students?</button>
+                <div class="faq-answer">
+                    <p>Hanu Edu offers end-to-end support for students aspiring to study abroad. Our services include helping you research and shortlist universities, guiding you through the application process, assisting with education loans, providing financial aid guidance, preparing you for visa applications, and offering pre-departure and post-arrival support. We are committed to making your study abroad journey seamless and successful.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How do you help students choose the right university?</button>
+                <div class="faq-answer">
+                    <p>Choosing the right university is critical, and we ensure this decision is well-informed. Our experts evaluate your academic history, career goals, financial situation, and personal preferences. Based on this, we provide a customized list of universities and programs that align with your aspirations. We also consider factors like location, rankings, and future job opportunities to ensure the best fit for you.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can Hanu Edu assist with securing scholarships or financial aid?</button>
+                <div class="faq-answer">
+                    <p>Yes, we specialize in helping students identify and apply for scholarships and financial aid opportunities. We guide you through the process of creating strong applications, crafting impactful essays, and meeting eligibility requirements. Our goal is to help you reduce your financial burden by leveraging grants, scholarships, and other funding options available to international students.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What is the success rate of students getting admitted through Hanu Edu?</button>
+                <div class="faq-answer">
+                    <p>Our success rate is over 95%, which speaks to the quality of our services. Our experienced team ensures that your application stands out by focusing on every detail, from your statement of purpose to your recommendation letters. We also provide mock interviews and thorough reviews to maximize your chances of acceptance.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Does Hanu Edu assist with the visa application process?</button>
+                <div class="faq-answer">
+                    <p>Absolutely! Navigating the visa process can be challenging, but we simplify it for you. We assist with completing your application forms, ensuring all required documentation is in place, and conducting mock interviews to prepare you for the real thing. Our team stays updated with the latest visa policies to provide you with accurate and reliable guidance.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What if my visa is rejected? Can Hanu Edu help?</button>
+                <div class="faq-answer">
+                    <p>Yes, in the unfortunate event of a visa rejection, our team will review your case, identify areas for improvement, and guide you in reapplying. We provide additional interview preparation, refine your documentation, and help address any issues raised during your previous application to increase your chances of success.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Does Hanu Edu provide guidance on accommodation in the U.S.?</button>
+                <div class="faq-answer">
+                    <p>Yes, we assist students in finding safe and affordable accommodation near their university. We provide resources to help you connect with other students, search for housing options, and understand the rental process. Whether it’s on-campus housing or off-campus apartments, we ensure you feel at home from day one.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can you help me adjust to life in the U.S. once I arrive?</button>
+                <div class="faq-answer">
+                    <p>Definitely! We provide post-arrival support to help you settle into your new environment. From airport pickups and setting up a bank account to understanding public transportation and campus life, our resources and guidance ensure a smooth transition.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How early should I start the application process for studying abroad?</button>
+                <div class="faq-answer">
+                    <p>Starting early is crucial for a stress-free experience. Ideally, you should begin at least 12-18 months before your intended start date. This timeline allows you to complete necessary exams like GRE, GMAT, or TOEFL, research universities, prepare applications, arrange finances, and complete the visa process. Early planning ensures you don’t miss any deadlines and increases your chances of success.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can Hanu Edu help with securing education loans?</button>
+                <div class="faq-answer">
+                    <p>Yes, we assist you in securing the best education loans tailored to your needs. With our network of financial institutions and loan providers, we help you compare options and choose low-interest loans with flexible repayment terms. We also provide guidance on documentation and application processes to ensure timely approval.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Do you offer support after students arrive in the U.S.?</button>
+                <div class="faq-answer">
+                    <p>Yes, our support doesn’t end once you’ve been admitted. We assist with pre- and post-arrival needs, such as airport pickups, finding accommodation, and helping you settle into your new environment. Our team also provides tips and resources to help you adjust to cultural differences and make the most of your time abroad.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Is there a consultation fee for your services?</button>
+                <div class="faq-answer">
+                    <p>Hanu Edu offers an initial free consultation to understand your needs and provide a roadmap for your study abroad journey. For our comprehensive services, we offer competitively priced packages with no hidden costs. Our aim is to provide exceptional value and support at every step of the process.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How do I get started with Hanu Edu?</button>
+                <div class="faq-answer">
+                    <p>Getting started is simple! You can fill out the contact form on our website, email us directly, or call our support team. Once we understand your goals and requirements, one of our expert counselors will connect with you to create a personalized plan and begin your journey toward studying abroad.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Hanu Edu. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Load the Supabase library -->
+  
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                } else {
+                    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('show'));
+                    answer.classList.add('show');
+                }
+            });
+        });
+    });
+
+// Function to animate text
+function animateText(text) {
+    const words = text.textContent.split(" ");
+    text.innerHTML = ""; // Clear original text
+
+    words.forEach((word, index) => {
+        const span = document.createElement("span");
+        span.textContent = word;
+        span.style.opacity = 0;
+        span.style.display = "inline-block";
+        span.style.transition = `opacity 0.2s ease ${index * 0.2}s, transform 0.2s ease ${index * 0.2}s`;
+        span.style.transform = "translateY(20px)";
+        text.appendChild(span);
+        text.appendChild(document.createTextNode(" ")); // Add space between words
+
+        // Trigger animation
+        setTimeout(() => {
+            span.style.opacity = 1;
+            span.style.transform = "translateY(0)";
+        }, index * 10); // Delay of 10ms per word
+    });
+}
+
+// Intersection Observer to trigger animation when visible
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            animateText(entry.target);
+            observer.unobserve(entry.target); // Stop observing after animation starts
+        }
+    });
+},{ threshold: 0.5 });
+
+// Observe all elements with #dynamic-text
+const textElements = document.querySelectorAll("#dynamic-text");
+textElements.forEach((text) => observer.observe(text));
+</script>
+
+
+
+ 
+</body>
+</html>

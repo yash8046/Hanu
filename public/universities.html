@@ -1,75 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universities</title>
-  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      text-align: center;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-      padding: 10px;
-      background: #f4f4f4;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEM Course Selector</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group select, .form-group button {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            border: none;
+            background-color: #004d99;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        footer {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
-  <h1>Universities</h1>
-  <ul id="universityList">Loading...</ul>
+    <header>
+        <h1>STEM Course Selector</h1>
+    </header>
 
-  <script>
-    // Your Firebase configuration
-    const firebaseConfig = {
-  apiKey: "AIzaSyA5A22Z7gI66dz6ArPdxVrNDvHpXB_XoGE",
-  authDomain: "hanu-f6b5f.firebaseapp.com",
-  projectId: "hanu-f6b5f",
-  storageBucket: "hanu-f6b5f.firebasestorage.app",
-  messagingSenderId: "305504975347",
-  appId: "1:305504975347:web:64e2fd7c79a60801703a86",
-  measurementId: "G-NYWH4KR1BX"
-};
+    <div class="container">
+        <form id="degree-selection">
+            <div class="form-group">
+                <label for="degree-type">Choose your degree type:</label>
+                <select id="degree-type" name="degree-type">
+                    <option value="">Select Degree Type</option>
+                    <option value="undergraduate">Undergraduate</option>
+                    <option value="masters">Masters</option>
+                </select>
+            </div>
+            <div class="form-group" id="course-selection" style="display: none;">
+                <label for="course-type">Select a Course:</label>
+                <select id="course-type" name="course-type">
+                    <!-- Options added by JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    <footer>
+        <p>© 2025 STEM Courses Selector</p>
+    </footer>
 
-    // Reference to the universities node in the database
-    const universitiesRef = firebase.database().ref('universities');
+    <script>
+        document.getElementById('degree-type').addEventListener('change', function() {
+            var courseSelect = document.getElementById('course-type');
+            courseSelect.innerHTML = '';
 
-    // Fetch and display universities
-    universitiesRef.on('value', (snapshot) => {
-      const universities = snapshot.val();
-      displayUniversities(universities);
-    });
+            var courses = {
+                'undergraduate': [
+                    'Analytical Chemistry', 'Applied Mathematics', 'Artificial Intelligence', 'Aerospace Engineering',
+                    'Biochemistry', 'Biomedical Engineering', 'Biology', 'Biotechnology',
+                    'Chemical Engineering', 'Civil Engineering', 'Classical Physics', 'Computer Networks',
+                    'Computer Science', 'Cybersecurity', 'Chemistry',
+                    'Data Science', 'Ecology', 'Electrical Engineering', 'Engineering',
+                    'Environmental Engineering', 'Environmental Science',
+                    'Genetics', 'Geology',
+                    'Industrial Engineering', 'Information Technology', 'Inorganic Chemistry',
+                    'Mechanical Engineering', 'Meteorology', 'Microbiology', 'Modern Physics',
+                    'Molecular Biology', 'Management Information Systems',
+                    'Organic Chemistry', 'Oceanography',
+                    'Physics', 'Physical Chemistry', 'Pure Mathematics',
+                    'Quantum Physics',
+                    'Software Engineering', 'Statistics', 'Systems Analysis',
+                    'Thermodynamics'
+                ],
+                'masters': [
+                'M.Sc. Applied Physics', 'M.Sc. Artificial Intelligence', 'M.Eng. Aerospace Engineering', 'M.Sc. Analytical Chemistry',
+                    'M.Sc. Bioinformatics', 'M.Eng. Biomedical Engineering', 'M.Sc. Biotechnology',
+                    'M.Eng. Civil Engineering', 'M.Eng. Chemical Engineering', 'M.Sc. Computer Science', 'M.Sc. Cybersecurity',
+                    'M.Sc. Data Science', 'M.Sc. Database Management',
+                    'M.Eng. Electrical Engineering', 'M.Eng. Environmental Engineering', 'M.Sc. Environmental Science',
+                    'M.Sc. Geology', 'M.Sc. Genetics',
+                    'M.Sc. Information Security', 'M.Sc. Information Systems', 'M.Sc. IT Project Management',
+                    'M.Sc. Machine Learning', 'M.Eng. Mechanical Engineering', 'M.Sc. Meteorology',
+                    'M.Sc. Nuclear Physics', 'M.Sc. Nanotechnology',
+                    'M.Sc. Organic Chemistry', 'M.Sc. Oceanography',
+                    'M.Sc. Physics', 'M.Sc. Physical Chemistry', 'M.Sc. Pure Mathematics',
+                    'M.Sc. Quantum Physics', 'M.Sc. Robotics',
+                    'M.Sc. Software Engineering', 'M.Sc. Sustainability Studies', 'M.Sc. Systems Design',
+                    'M.Sc. Theoretical Physics'
+                ]
+            };
 
-    function displayUniversities(universities) {
-      const universityList = document.getElementById('universityList');
-      universityList.innerHTML = ''; // Clear the list
-
-      if (universities) {
-        for (const key in universities) {
-          const university = universities[key];
-          const listItem = document.createElement('li');
-          listItem.textContent = `${university.name} (${university.location}) - Rank: ${university.rank}`;
-          universityList.appendChild(listItem);
-        }
-      } else {
-        universityList.innerHTML = '<li>No universities found.</li>';
-      }
-    }
-  </script>
+            if (this.value) {
+                courses[this.value].sort().forEach(function(course) {
+                    var option = new Option(course, course);
+                    courseSelect.add(option);
+                });
+                document.getElementById('course-selection').style.display = 'block';
+            } else {
+                document.getElementById('course-selection').style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

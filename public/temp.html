@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanu Edu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Add this link to your HTML <head> section -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<!-- Add this link to your HTML <head> section -->
+    <title>Track Your Application - Hanu Edu</title>
+   
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.22.6/dist/supabase.min.js"></script>
 
     <style>
         body {
@@ -16,9 +15,11 @@
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: #333;
-            
             background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
             background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -68,98 +69,64 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .apply-now {
-            padding: 0.8rem 1.5rem;
-            background-color: #ffd700;
-            color: #00264d;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: background-color 0.3s ease;
-        }
-
-        .apply-now:hover {
-            background-color: #004d99;
-            color: white;
-        }
-
-        .hero {
-            background: rgba(0, 0, 0, 0.5);
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-        }
-
-        .apply-button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: -50px;
-        }
-
-        .apply-button {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background-color: #004d99;
-            color: white;
-            border: none;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s;
-        }
-
-        .apply-button:hover {
-            background-color: #ffd700;
-            color: #00264d;
-        }
-
-        section {
+        .tracking-container {
+            margin: 2rem auto;
             padding: 2rem;
-            text-align: center;
+            max-width: 600px;
             background: rgba(255, 255, 255, 0.9);
-            margin: 2rem;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-grow: 1;
         }
 
-        .section-heading {
+        .tracking-container h1 {
             margin-bottom: 1rem;
             font-size: 2rem;
             color: #004d99;
         }
 
-        .section-content {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1rem;
-            line-height: 1.8;
+        .form-group {
+            margin-bottom: 1rem;
         }
 
-        .button {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            padding: 0.8rem 2rem;
+            border: none;
             background-color: #004d99;
             color: white;
-            border: none;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 500;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
-        .button:hover {
+        .form-group button:hover {
             background-color: #ffd700;
             color: #00264d;
+        }
+
+        .tracking-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
         }
 
         footer {
@@ -167,164 +134,198 @@
             color: white;
             text-align: center;
             padding: 1rem 0;
+            margin-top: auto;
         }
+        .faq-container .faq-question {
+    background-color: #004d99;
+    color: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s ease;
+}
 
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-            }
+.faq-container .faq-question:hover {
+    background-color: #ffd700;
+    color: #00264d;
+}
 
-            .nav-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
+.faq-container .faq-answer {
+    display: none;
+    padding: 1rem;
+    background-color: rgba(233, 236, 239, 0.8);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
 
-            .hero h1 {
-                font-size: 2rem;
-                padding: 0 1rem;
-            }
+.faq-container .faq-answer.show {
+    display: block;
+}
 
-            section {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
+.faq-container .faq-answer,
+.faq-container .faq-question,
+.tracking-container h1,
+.form-group label,
+.form-group input,
+.form-group button,
+.nav-links a {
+    padding: 1rem; /* Adjust padding for elements with text */
+    font-family: 'Poppins', sans-serif; /* Ensure Poppins font is applied */
 
-            .section-heading {
-                font-size: 1.5rem;
-            }
+}
+.faq-container {
+    padding: 2rem; /* Add space inside the container on all sides */
+}
 
-            .section-content {
-                font-size: 0.9rem;
-            }
+.faq-container .faq-question {
+    background-color: #004d99;
+    color: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem; /* Increased padding for the question */
+    font-size: 1rem;
+    font-weight: 400; /* Reduced font weight */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1rem; /* Space between questions */
+    transition: background-color 0.3s ease;
+}
 
-            .button {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            .apply-now {
-                font-size: 0.9rem;
-                padding: 0.6rem 1rem;
-            }
-        }
+.faq-container .faq-question:hover {
+    background-color: #ffd700;
+    color: #00264d;
+}
 
 
-  
+
     </style>
 </head>
 <body>
     <header>
-        <h1>Explore the World with Hanu Edu</h1>
+        <h1>Track Your Application</h1>
     </header>
+
+    <div class="tracking-container">
+        <h1>Track Your Application</h1>
+        <form id="trackingForm">
+            <div class="form-group">
+                <label for="trackingNumber">Enter Your Tracking Number:</label>
+                <input type="text" id="trackingNumber" placeholder="e.g. 12345678" required>
+                <button type="submit">Track Now</button>
+            </div>
+        </form>
+        <div id="trackingResult" class="tracking-result"></div>
+    </div>
+    <div class="faq-container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <button class="faq-question">What services does Hanu Edu provide to students?</button>
+            <div class="faq-answer">
+                <p>
+                    Hanu Edu offers end-to-end support for students aspiring to study abroad. Our services include helping you research and shortlist universities, guiding you through the application process, assisting with education loans, providing financial aid guidance, preparing you for visa applications, and offering pre-departure and post-arrival support. We are committed to making your study abroad journey seamless and successful.
+                </p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">How do you help students choose the right university?</button>
+            <div class="faq-answer">
+                <p>
+                    Choosing the right university is critical, and we ensure this decision is well-informed. Our experts evaluate your academic history, career goals, financial situation, and personal preferences. Based on this, we provide a customized list of universities and programs that align with your aspirations. We also consider factors like location, rankings, and future job opportunities to ensure the best fit for you.
+                </p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Can Hanu Edu assist with securing scholarships or financial aid?</button>
+            <div class="faq-answer">
+                <p>
+                    Yes, we specialize in helping students identify and apply for scholarships and financial aid opportunities. We guide you through the process of creating strong applications, crafting impactful essays, and meeting eligibility requirements. Our goal is to help you reduce your financial burden by leveraging grants, scholarships, and other funding options available to international students.
+                </p>
+            </div>
+        </div>
+    </div>
     
-    <nav>
-        <div class="logo">Hanu Edu</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#study-abroad">Study Abroad Destination</a>
-            <a href="#services">Services</a>
-            <a href="#visa-help">Visa Help</a>
-            <a href="#about">About</a>
-        </div>
-        <a href="#apply" class="apply-now">Apply Now</a>
-    </nav>
-
-    <div class="hero" id="home">
-        <h1>Welcome to Your Study Abroad Journey</h1>
-    </div>
-
-    <div class="apply-button-container">
-        <a href="#apply" class="apply-button">Apply Now</a>
-    </div>
-
-    <section id="study-abroad">
-        <h2 class="section-heading">Study Abroad Destinations</h2>
-        <div class="section-content">
-            <p>Discover top destinations for your studies. Whether it's the bustling cities of Europe, the innovation hubs of North America, or the cultural richness of Asia, we've got you covered.</p>
-            <a href="#" class="button">Learn More</a>
-        </div>
-    </section>
-
-    <section id="services">
-        <h2 class="section-heading">Our Services</h2>
-
-        <section>
-            <h3>Personalized Counseling</h3>
-            <div class="section-content">
-                <p>Get one-on-one guidance tailored to your academic and career goals.</p>
-                <a href="#" class="button">Explore Counseling</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Application Assistance</h3>
-            <div class="section-content">
-                <p>Let us help you craft the perfect application to secure admission to your dream university.</p>
-                <a href="#" class="button">Start Application</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Visa Guidance</h3>
-            <div class="section-content">
-                <p>Navigate the complex visa process with our expert guidance.</p>
-                <a href="#" class="button">Get Visa Help</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Pre-Departure Support</h3>
-            <div class="section-content">
-                <p>Prepare for your journey with cultural, financial, and practical advice.</p>
-                <a href="#" class="button">Prepare Now</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Financial Aid Assistance</h3>
-            <div class="section-content">
-                <p>We help you secure loans, grants, and scholarships to fund your education journey.</p>
-                <a href="#" class="button">Explore Options</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Language Test Prep</h3>
-            <div class="section-content">
-                <p>Comprehensive preparation for exams like TOEFL and IELTS to meet university requirements.</p>
-                <a href="#" class="button">Start Preparing</a>
-            </div>
-        </section>
-
-        <section>
-            <h3>Career Development</h3>
-            <div class="section-content">
-                <p>Access internships, networking opportunities, and career guidance to build your future.</p>
-                <a href="#" class="button">Boost Your Career</a>
-            </div>
-        </section>
-    </section>
-
-    <section id="visa-help">
-        <h2 class="section-heading">Visa Help</h2>
-        <div class="section-content">
-            <p>Our visa support services guide you through the process step-by-step. From documentation to interviews, we make the journey seamless and stress-free.</p>
-            <a href="#" class="button">Get Help Now</a>
-        </div>
-    </section>
-
-    <section id="about">
-      <h2 class="section-heading">About Hanu</h2>
-      <div class="section-content">
-          <p>Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
-          <a href="about.html" class="button">Read More</a>
-      </div>
-  </section>
-  
-
+    
     <footer>
         <p>&copy; 2024 Hanu Edu. All Rights Reserved.</p>
     </footer>
+
+    <!-- Load the Supabase library -->
+  
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabaseUrl = 'https://oyeseydtxwycupqcmzmy.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95ZXNleWR0eHd5Y3VwcWNtem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyMzY5MTUsImV4cCI6MjA1MDgxMjkxNX0.K2duAt1MCC2X9EwJnxcMOk5oG0F3QDlFAumrtz3qnh8';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+        document.getElementById('trackingForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const trackingNumber = document.getElementById('trackingNumber').value.trim();
+            console.log('Form submitted, tracking number:', trackingNumber);
+
+            const trackingResult = document.getElementById('trackingResult');
+            trackingResult.style.display = 'none';
+            trackingResult.innerHTML = ''; // Clear previous results
+
+            if (trackingNumber) {
+                console.log('Making a query to Supabase...');
+                const { data, error } = await supabase
+                    .from('tracking_info')
+                    .select('*')
+                    .eq('id', parseInt(trackingNumber));
+
+                if (error) {
+                    console.error('Error querying Supabase:', error.message);
+                    trackingResult.innerHTML = `<p>Error: ${error.message}</p>`;
+                } else if (data && data.length > 0) {
+                    console.log('Data retrieved from Supabase:', data);
+                    const statuses = data.map(d => `<p>${d.status1 || 'N/A'} - ${d.status2 || 'N/A'} - ${d.status3 || 'N/A'}</p>`).join('');
+                    trackingResult.innerHTML = statuses;
+                } else {
+                    console.log('No data found for the provided tracking number.');
+                    trackingResult.innerHTML = '<p>No tracking information found for this number.</p>';
+                }
+                trackingResult.style.display = 'block';
+            } else {
+                console.log('Invalid input: Tracking number is required.');
+                trackingResult.innerHTML = '<p>Please enter a valid tracking number.</p>';
+                trackingResult.style.display = 'block';
+            }
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                } else {
+                    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('show'));
+                    answer.classList.add('show');
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+ 
 </body>
 </html>

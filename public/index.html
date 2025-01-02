@@ -426,7 +426,22 @@ padding: 1rem 2rem;
     scrollbar-color: #cee0f26b #f8faff; /* Thumb and track colors */
     scrollbar-width: thin; /* Thin scrollbar */
 }
+.faq-block {
+  flex: 1 1 calc(33.333% - 20px); /* 3 blocks per row */
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  font-family: 'Poppins', sans-serif;
+  margin: 30px;
+}
 
+.faq-block h2 {
+    color: #004d99;
+    text-align: center;
+}
 /* Additional Styling for Small Devices */
 @media (max-width: 768px) {
     .review-container::-webkit-scrollbar {
@@ -908,11 +923,12 @@ padding: 1rem 2rem;
         <div class="nav-links hidden" id="nav-links">
             <button class="close-menu hidden" id="close-menu">&times;</button>
             <a href="#home">College Finder</a>
-            <a href="#study-abroad">Track Application</a>
+            <a href="#study-abroad" id ="track">Track Application</a>
             <a href="#services">Services</a>
             <a href="#mock_test" id="mock_test">Mock Test</a>
             <a href="#about">About Us</a>
             <a href="#apply" id="apply-button">Contact Us</a>
+            <a href="#faq">FAQs</a>
         </div>
     </nav>
     
@@ -1139,9 +1155,10 @@ padding: 1rem 2rem;
           <p class="hidden">Hanu Edu believes in the power of education to transform lives. With over a decade of experience, we provide holistic support to students aspiring to study abroad, equipping them to become global changemakers.</p>
           <a href="about.html" class="button hidden">Read More</a>
       </div>
- 
 </div>
+
 </section>
+
 <div id="popup" class="popup hidden">
     <button class="popup-close hidden" onclick="closePopup()">&times;</button>
     <img id="popupImage" class="popup-image hidden" src="" alt="Profile">
@@ -1351,7 +1368,16 @@ padding: 1rem 2rem;
                 font-size: 0.85rem;
             }
         }
+
+
+.nav-links a {
+    padding: 1rem; /* Adjust padding for elements with text */
+    font-family: 'Poppins', sans-serif; /* Ensure Poppins font is applied */
+
+}
+
     </style>
+    
 </style>
 
 <script>
@@ -1473,6 +1499,7 @@ startAutoScroll();
   let questionnaireResponses = [];
     const applyButton = document.getElementById("apply-button");
     const applyButton2 = document.getElementById("apply-button2");
+    const track = document.getElementById("track");
     const overlay = document.getElementById("overlay");
     const questionnaire = document.getElementById("questionnaire");
     const questionDiv = questionnaire.querySelector(".question");
@@ -1548,7 +1575,26 @@ startAutoScroll();
         overlay.style.display = "none";
         questionnaire.style.display = "none";
     });
-    
+    track.addEventListener("click",()=>{
+        window.location.href = "track_application.html";
+    });
+        
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                } else {
+                    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('show'));
+                    answer.classList.add('show');
+                }
+            });
+        });
+    });
     const messages = [
     { text: "Raj has been accepted into the prestigious Harvard University!", image: "images/notifications_avatar/boy1.png" },
     { text: "Arjun has successfully applied for a transfer to Stanford University.", image: "images/notifications_avatar/boy1.png" },
@@ -1687,7 +1733,7 @@ function animateText(text) {
         setTimeout(() => {
             span.style.opacity = 1;
             span.style.transform = "translateY(0)";
-        }, index * 200); // Delay of 200ms per word
+        }, index * 10); // Delay of 10ms per word
     });
 }
 

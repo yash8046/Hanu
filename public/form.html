@@ -216,9 +216,12 @@
     <footer>
         <p>&copy; 2024 Hanu. Empowering Futures Globally.</p>
     </footer>
-
-    <script>
-        
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+    <script type="module">
+         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabaseUrl = 'https://oyeseydtxwycupqcmzmy.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95ZXNleWR0eHd5Y3VwcWNtem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyMzY5MTUsImV4cCI6MjA1MDgxMjkxNX0.K2duAt1MCC2X9EwJnxcMOk5oG0F3QDlFAumrtz3qnh8';
+    const supabase = createClient(supabaseUrl, supabaseKey);
         function showCustomAlert(message) {
             const alertMessage = document.getElementById("custom-alert-message");
             const customAlert = document.getElementById("custom-alert");
@@ -244,6 +247,9 @@
   return Math.floor(10000000 + Math.random() * 90000000);
 }
  const applicationNumber = generateApplicationNumber();
+ const trackingData = {
+            id: applicationNumber
+        };
     const formData = {
         applicationNumber,
         userName: document.getElementById("userName").value,
@@ -270,7 +276,16 @@
             }
 
             if (data.success) {
-                showCustomAlert("Your form has been submitted successfully!");
+                showCustomAlert("Your form has been submitted successfully! Your Application number is : "+applicationNumber);
+                try {
+            const { data, error } = await supabase
+                .from('tracking_info')
+                .insert([{ id: applicationNumber }]); // Inserting only the id
+
+            if (error) throw error
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
             } else {
                 showCustomAlert(`Error: ${data.message}`);
             }

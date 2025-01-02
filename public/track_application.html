@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Application - Hanu Edu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+         body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(0, 38, 77, 0.9);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+            background-color: rgba(0, 77, 153, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffd700;
+            color: #00264d;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .tracking-container {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .tracking-container h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #004d99;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            padding: 0.8rem 2rem;
+            border: none;
+            background-color: #004d99;
+            margin-top: 20px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #ffd700;
+            color: #00264d;
+        }
+
+        .tracking-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            list-style: none;
+        }
+
+
+        .milestone {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .milestone:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 20px;
+            width: 20px;
+          
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .milestone.completed:before {
+            background-color: #004d99; /* Filled milestone */
+            border-color: #004d99;
+        }
+
+        .milestone p {
+            margin: 0;
+            padding-left: 10px;
+
+        }
+
+       
+        footer {
+            background-color: rgba(0, 77, 153, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+
+/* Media Queries for Responsive Adjustments */
+@media (max-width: 768px) {
+    
+
+    .tracking-container {
+       /* Less padding inside the container */
+        max-width: 80%; /* Full width on smaller screens */
+        
+    }
+
+  
+}    
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hanu Edu</h1>
+    </header>
+
+    <div class="tracking-container">
+        <h1>Track Your Application</h1>
+        <form id="trackingForm">
+            <div class="form-group">
+                <label for="trackingNumber">Enter Your Tracking Number:</label>
+                <input type="text" id="trackingNumber" placeholder="e.g. 12345678" required>
+                <button type="submit">Track Now</button>
+            </div>
+        </form>
+        <div id="trackingResult" class="tracking-result"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hanu Edu. All Rights Reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.22.6/dist/supabase.min.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const supabaseUrl = 'https://oyeseydtxwycupqcmzmy.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95ZXNleWR0eHd5Y3VwcWNtem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUyMzY5MTUsImV4cCI6MjA1MDgxMjkxNX0.K2duAt1MCC2X9EwJnxcMOk5oG0F3QDlFAumrtz3qnh8';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('trackingForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const trackingNumber = document.getElementById('trackingNumber').value.trim();
+                const trackingResult = document.getElementById('trackingResult');
+                trackingResult.style.display = 'none';
+                trackingResult.innerHTML = ''; // Clear previous results
+
+                if (trackingNumber) {
+                    const { data, error } = await supabase
+                        .from('tracking_info')
+                        .select('*')
+                        .eq('id', parseInt(trackingNumber));
+
+                    if (error) {
+                        trackingResult.innerHTML = `<li class="milestone"><p>Error: ${error.message}</p></li>`;
+                    } else if (data && data.length > 0) {
+                        const d = data[0]; // Assuming there's only one record per tracking number
+                        const statuses = ['status1', 'status2', 'status3','status4'].map(status => {
+                            const isCompleted = !!d[status];
+                            return `<li class="milestone ${isCompleted ? 'completed' : ''}"><p>${d[status] || '⌛ Pending'}</p></li>`;
+                        }).join('');
+                        trackingResult.innerHTML = statuses;
+                    } else {
+                        trackingResult.innerHTML = 'No tracking information found for this number';
+                    }
+                    trackingResult.style.display = 'block';
+                } else {
+                    trackingResult.innerHTML = 'Please enter a valid tracking number';
+                    trackingResult.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
