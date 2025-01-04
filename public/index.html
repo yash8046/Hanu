@@ -725,10 +725,10 @@ padding: 1rem 2rem;
         right: 0;
         height: 100vh;
         width: 250px;
-        background-color: rgba(0, 38, 77, 0.95);
+        background-color: rgba(0, 128, 255, 0.95);
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
         padding: 60px 20px 20px; /* Add padding-top for the close button */
-        gap: 20px;
+        gap: 10px;
         z-index: 1000;
     }
     .nav-links a {
@@ -928,7 +928,7 @@ padding: 1rem 2rem;
             <a href="#mock_test" id="mock_test">Mock Test</a>
             <a href="#about">About Us</a>
             <a href="#apply" id="apply-button">Contact Us</a>
-            <a href="#faq">FAQs</a>
+            <a href="#faq" id="faqs">FAQs</a>
         </div>
     </nav>
     
@@ -1077,7 +1077,7 @@ padding: 1rem 2rem;
             <p class="hidden">
             Choosing Hanu Edu was the best decision I made during my study abroad journey. Their counselors were incredibly supportive and went above and beyond to ensure I felt confident throughout the process. Their advice on university selection and their assistance with my application were invaluable. Thanks to them, I am now pursuing my MS in Biomedical Engineering at Rutgers University. I couldn’t have done it without Hanu Edu, and I will always be grateful for their guidance.</p>
             <p class="reviewer hidden">
-                <img class="hidden" src="images/people-9.jpg" alt="Kevin T." />
+                <img class="hidden" src="images/people-9.jpg" alt="Bhavana Rao" />
                 - Bhavana Rao, Rutgers  University
             </p>
             
@@ -1099,7 +1099,7 @@ padding: 1rem 2rem;
             <p class="hidden">
             I was completely lost when I started my study abroad journey, but Hanu Edu provided the clarity and guidance I needed. Their counselors helped me shortlist universities, refine my application, and even navigate the financial aid process. Thanks to their efforts, I secured admission to Syracuse University for my MS in Public Administration. Hanu Edu’s support didn’t end there—they even helped me with my pre-departure preparations. I am so thankful for their dedication and expertise.</p>
             <p class="reviewer hidden">
-                <img class="hidden" src="images/people-10.jpg" alt="Kevin T." />
+                <img class="hidden" src="images/people-10.jpg" alt="Lakshmi Prasanna" />
                 - Lakshmi Prasanna, Syracuse  University
             </p>
             
@@ -1498,6 +1498,7 @@ startAutoScroll();
     let currentQuestion = 0;
   let questionnaireResponses = [];
     const applyButton = document.getElementById("apply-button");
+    const faq= document.getElementById("faqs");
     const applyButton2 = document.getElementById("apply-button2");
     const track = document.getElementById("track");
     const overlay = document.getElementById("overlay");
@@ -1519,6 +1520,7 @@ startAutoScroll();
             if (callback) callback();
         };
     }
+
 
     function showQuestion(index) {
         questionDiv.textContent = questions[index].question;
@@ -1545,7 +1547,9 @@ startAutoScroll();
         currentQuestion = 0;
         showQuestion(currentQuestion);
     });
-
+    faq.addEventListener("click",()=>{
+        window.location.href = "./pages/faq.html"; 
+    });
     mock_test.addEventListener("click", () => {
         window.location.href = "choose_test.html";
     });
