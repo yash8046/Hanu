@@ -18,7 +18,7 @@ async function createCustomerAndAttachPayment(paymentMethodId) {
 }
 
 // Endpoint for one-time payments
-app.post('/api/payment', async (req, res) => {
+app.post('/api/stripe', async (req, res) => {
     const { paymentMethodId } = req.body;
     try {
         const customer = await createCustomerAndAttachPayment(paymentMethodId);
@@ -36,37 +36,8 @@ app.post('/api/payment', async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 });
-// Helper function to create customer and attach payment method
-async function createCustomerWithDefaultPaymentMethod(paymentMethodId) {
-    try {
-        const customer = await stripe.customers.create({
-            payment_method: paymentMethodId,
-            invoice_settings: {
-                default_payment_method: paymentMethodId,
-            },
-        });
-        return customer;
-    } catch (error) {
-        throw error;
-    }
-}
 
-// Endpoint for creating monthly subscriptions
-app.post('/api/subscribe', async (req, res) => {
-    const { paymentMethodId, priceId } = req.body;
-    try {
-        const customer = await createCustomerWithDefaultPaymentMethod(paymentMethodId);
 
-        const subscription = await stripe.subscriptions.create({
-            customer: customer.id,
-            items: [{ price: priceId }],
-        });
 
-        res.json({ success: true, subscriptionId: subscription.id, customer: customer.id });
-    } catch (error) {
-        console.error('Error in creating subscription:', error);
-        res.status(400).json({ success: false, message: error.message });
-    }
-});
 
-app.listen(3000, () => console.log('Server listening on port 3000!'));
+app.listen(5050, () => console.log('Server listening on port 3000!'));
