@@ -46,69 +46,60 @@
         <button id="submit">Pay</button>
     </form>
     <script>
-var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
-var elements = stripe.elements();
-var card = elements.create('card');
-card.mount('#card-element');
-
-var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    var paymentType = document.getElementById('payment-type').value;
-
-    stripe.createPaymentMethod({
-        type: 'card',
-        card: card
-    }).then(function(result) {
-        if (result.error) {
-            // Log the original error message for debugging
-            console.log(result.error.message);
-            // Display a friendly error message using the error code
-            alert(getErrorMessage(result.error.code)); 
-        } else {
-            var postData = {
-                paymentMethodId: result.paymentMethod.id
-            };
-            var targetUrl = paymentType === 'subscription' ? 'https://hanu-liart.vercel.app/api/subscribe' : 'https://hanu-liart.vercel.app/api/stripe';
-
-            fetch(targetUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData),
-            }).then(response => response.json())
-              .then(data => {
-                  if (!data.success) {
-                      // Handle backend errors here by passing the error code to getErrorMessage
-                      throw new Error(getErrorMessage(data.error?.code || ''));
-                  }
-                  alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
-              }).catch(error => {
-                  console.error('Error:', error);
-                  alert(error.message); // This will display the correct error message
-              });
-        }
-    });
-});
-
-function getErrorMessage(code) {
-    switch (code) {
-        case 'card_declined':
-            return "Your card was declined. Please use a different card.";
-        case 'expired_card':
-            return "Your card has expired. Please use a current card.";
-        case 'incorrect_cvc':
-            return "Incorrect CVC code. Please try again.";
-        case 'insufficient_funds':
-            return "Insufficient funds. Please ensure that your card has enough funds.";
-        case 'processing_error':
-            return "A processing error occurred. Please try again.";
-        default:
-            return "An error occurred. Please check your payment details and try again.";
-    }
-}
-
+        var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
+        var elements = stripe.elements();
+        var card = elements.create('card');
+        card.mount('#card-element');
+    
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var paymentType = document.getElementById('payment-type').value;
+    
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: card
+            }).then(function(result) {
+                if (result.error) {
+                    console.log(result.error.message);
+                    alert("Error: " + result.error.message);
+                } else {
+                    var postData;
+                    var targetUrl;
+                    
+                    if (paymentType === 'subscription') {
+                        postData = {
+                            paymentMethodId: result.paymentMethod.id, // Include paymentMethodId for subscription
+                            priceId: 'price_1QnN42DOD0bw94hzHwni1gL8' // The subscription price ID
+                        };
+                        targetUrl = 'https://hanu-liart.vercel.app/api/subscribe'; // Use the subscription server URL
+                    } else {
+                        postData = { paymentMethodId: result.paymentMethod.id };
+                        targetUrl = 'https://hanu-liart.vercel.app/api/stripe'; // Use the one-time payment server URL
+                    }
+    
+                    fetch(targetUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(postData),
+                    }).then(function(response) {
+                        return response.json();
+                    }).then(function(result) {
+                        if (result.success) {
+                            alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
+                        } else {
+                            throw new Error(result.message || "Payment processing failed.");
+                        }
+                    }).catch(function(error) {
+                        console.error('Error:', error);
+                        alert("Payment failed. Please try again. If the issue persists, contact support.");
+                    });
+                }
+            });
+        });
+        
     </script>
     
     
