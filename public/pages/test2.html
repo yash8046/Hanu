@@ -94,7 +94,7 @@
                         }
                     }).catch(function(error) {
                         console.error('Error:', error);
-                        
+                        alert(' '+code);
                     });
                 }
             });
@@ -102,17 +102,17 @@
         function getErrorMessage(code) {
             switch (code) {
                 case 'card_declined':
-                    alert ("Your card was declined. Please use a different card.");
+                    return "Your card was declined. Please use a different card.";
                 case 'expired_card':
-                    alert ("Your card has expired. Please use a current card.");
+                    return "Your card has expired. Please use a current card.";
                 case 'incorrect_cvc':
-                    alert ("Incorrect CVC code. Please try again.");
+                    return "Incorrect CVC code. Please try again.";
                 case 'insufficient_funds':
-                    alert ("Insufficient funds. Please ensure that your card has enough funds.");
+                    return "Insufficient funds. Please ensure that your card has enough funds.";
                 case 'processing_error':
-                    alert ("A processing error occurred. Please try again.");
+                    return "A processing error occurred. Please try again.";
                 default:
-                    alert ("An error occurred. Please check your payment details and try again.");
+                    return "An error occurred. Please check your payment details and try again.";
             }
         }
     </script>
