@@ -3,6 +3,7 @@ import './App.css';
 function App() {
    return null;
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const hiddenElements = document.querySelectorAll(".hidden");
 

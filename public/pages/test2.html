@@ -1,0 +1,106 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Payment Test</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #card-element {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #04c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #028;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="payment-form">
+        <div id="card-element">
+            <!-- Elements will create input elements here -->
+        </div>
+        <select id="payment-type">
+            <option value="one-time">One-Time Payment</option>
+            <option value="subscription">Monthly Subscription</option>
+        </select>
+        <button id="submit">Pay</button>
+    </form>
+    <script>
+        var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
+        var elements = stripe.elements();
+        var card = elements.create('card');
+        card.mount('#card-element');
+    
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var paymentType = document.getElementById('payment-type').value;
+    
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: card
+            }).then(function(result) {
+                if (result.error) {
+                    console.log(result.error.message);
+                    alert("Error: " + result.error.message);
+                } else {
+                    var postData;
+                    var targetUrl;
+                    
+                    if (paymentType === 'subscription') {
+                        postData = {
+                            paymentMethodId: result.paymentMethod.id, // Include paymentMethodId for subscription
+                            priceId: 'price_1QnN42DOD0bw94hzHwni1gL8' // The subscription price ID
+                        };
+                        targetUrl = 'http://localhost:5000/api/subscribe'; // Use the subscription server URL
+                    } else {
+                        postData = { paymentMethodId: result.paymentMethod.id };
+                        targetUrl = 'http://localhost:3000/api/payment'; // Use the one-time payment server URL
+                    }
+    
+                    fetch(targetUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(postData),
+                    }).then(function(response) {
+                        return response.json();
+                    }).then(function(result) {
+                        if (result.success) {
+                            alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
+                        } else {
+                            throw new Error(result.message || "Payment processing failed.");
+                        }
+                    }).catch(function(error) {
+                        console.error('Error:', error);
+                        alert("Payment failed. Please try again. If the issue persists, contact support.");
+                    });
+                }
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>
