@@ -72,10 +72,10 @@
                             paymentMethodId: result.paymentMethod.id, // Include paymentMethodId for subscription
                             priceId: 'price_1QnN42DOD0bw94hzHwni1gL8' // The subscription price ID
                         };
-                        targetUrl = 'http://localhost:5000/api/subscribe'; // Use the subscription server URL
+                        targetUrl = 'https://hanu-liart.vercel.app/api/subscribe'; // Use the subscription server URL
                     } else {
                         postData = { paymentMethodId: result.paymentMethod.id };
-                        targetUrl = 'http://localhost:3000/api/payment'; // Use the one-time payment server URL
+                        targetUrl = 'https://hanu-liart.vercel.app/api/payment'; // Use the one-time payment server URL
                     }
     
                     fetch(targetUrl, {
