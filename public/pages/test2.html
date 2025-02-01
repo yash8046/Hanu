@@ -75,7 +75,7 @@
                         targetUrl = 'https://hanu-liart.vercel.app/api/subscribe'; // Use the subscription server URL
                     } else {
                         postData = { paymentMethodId: result.paymentMethod.id };
-                        targetUrl = 'https://hanu-liart.vercel.app/api/payment'; // Use the one-time payment server URL
+                        targetUrl = 'https://hanu-liart.vercel.app/api/stripe'; // Use the one-time payment server URL
                     }
     
                     fetch(targetUrl, {
