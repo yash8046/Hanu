@@ -46,7 +46,7 @@
         <button id="submit">Pay</button>
     </form>
     <script>
-       var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
+var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
 var elements = stripe.elements();
 var card = elements.create('card');
 card.mount('#card-element');
@@ -61,8 +61,10 @@ form.addEventListener('submit', function(event) {
         card: card
     }).then(function(result) {
         if (result.error) {
-            console.log(result.error.message); // Log the original error message for debugging
-            alert("Error: " + getErrorMessage(result.error.code)); // Display a friendly error message
+            // Log the original error message for debugging
+            console.log(result.error.message);
+            // Display a friendly error message using the error code
+            alert(getErrorMessage(result.error.code)); 
         } else {
             var postData = {
                 paymentMethodId: result.paymentMethod.id
@@ -75,18 +77,17 @@ form.addEventListener('submit', function(event) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(postData),
-            }).then(function(response) {
-                return response.json();
-            }).then(function(result) {
-                if (result.success) {
-                    alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
-                } else {
-                    throw new Error(result.message || "Payment processing failed.");
-                }
-            }).catch(function(error) {
-                console.error('Error:', error);
-                alert(getErrorMessage(error.code)); // Here you must ensure that error.code is available or use a fallback method
-            });
+            }).then(response => response.json())
+              .then(data => {
+                  if (!data.success) {
+                      // Handle backend errors here by passing the error code to getErrorMessage
+                      throw new Error(getErrorMessage(data.error?.code || ''));
+                  }
+                  alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
+              }).catch(error => {
+                  console.error('Error:', error);
+                  alert(error.message); // This will display the correct error message
+              });
         }
     });
 });
