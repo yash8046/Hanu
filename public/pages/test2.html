@@ -99,6 +99,22 @@
                 }
             });
         });
+        function getErrorMessage(code) {
+            switch (code) {
+                case 'card_declined':
+                    return "Your card was declined. Please use a different card.";
+                case 'expired_card':
+                    return "Your card has expired. Please use a current card.";
+                case 'incorrect_cvc':
+                    return "Incorrect CVC code. Please try again.";
+                case 'insufficient_funds':
+                    return "Insufficient funds. Please ensure that your card has enough funds.";
+                case 'processing_error':
+                    return "A processing error occurred. Please try again.";
+                default:
+                    return "An error occurred. Please check your payment details and try again.";
+            }
+        }
     </script>
     
     
