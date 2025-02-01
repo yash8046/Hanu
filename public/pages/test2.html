@@ -46,60 +46,53 @@
         <button id="submit">Pay</button>
     </form>
     <script>
-        var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
-        var elements = stripe.elements();
-        var card = elements.create('card');
-        card.mount('#card-element');
-    
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            var paymentType = document.getElementById('payment-type').value;
-    
-            stripe.createPaymentMethod({
-                type: 'card',
-                card: card
+       var stripe = Stripe('pk_test_51QmgKsDOD0bw94hzo2NDcGwscrETCLMcVg2fTbMN6kA8WpGpl3bl8DB9z0ISDxKE4ulBpGVo3Kc1QyRrcKemwlVu00ygaP7ZBX');
+var elements = stripe.elements();
+var card = elements.create('card');
+card.mount('#card-element');
+
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var paymentType = document.getElementById('payment-type').value;
+
+    stripe.createPaymentMethod({
+        type: 'card',
+        card: card
+    }).then(function(result) {
+        if (result.error) {
+            console.log(result.error.message); // Log the original error message for debugging
+            alert("Error: " + getErrorMessage(result.error.code)); // Display a friendly error message
+        } else {
+            var postData = {
+                paymentMethodId: result.paymentMethod.id
+            };
+            var targetUrl = paymentType === 'subscription' ? 'https://hanu-liart.vercel.app/api/subscribe' : 'https://hanu-liart.vercel.app/api/stripe';
+
+            fetch(targetUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+            }).then(function(response) {
+                return response.json();
             }).then(function(result) {
-                if (result.error) {
-                    console.log(result.error.message);
-                    alert("Error: " + result.error.message);
+                if (result.success) {
+                    alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
                 } else {
-                    var postData;
-                    var targetUrl;
-                    
-                    if (paymentType === 'subscription') {
-                        postData = {
-                            paymentMethodId: result.paymentMethod.id, // Include paymentMethodId for subscription
-                            priceId: 'price_1QnN42DOD0bw94hzHwni1gL8' // The subscription price ID
-                        };
-                        targetUrl = 'https://hanu-liart.vercel.app/api/subscribe'; // Use the subscription server URL
-                    } else {
-                        postData = { paymentMethodId: result.paymentMethod.id };
-                        targetUrl = 'https://hanu-liart.vercel.app/api/stripe'; // Use the one-time payment server URL
-                    }
-    
-                    fetch(targetUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(postData),
-                    }).then(function(response) {
-                        return response.json();
-                    }).then(function(result) {
-                        if (result.success) {
-                            alert(paymentType === 'subscription' ? "Subscription successful!" : "Payment successful!");
-                        } else {
-                            throw new Error(result.message || "Payment processing failed.");
-                        }
-                    }).catch(function(error) {
-                        console.error('Error:', error);
-                        alert("Payment failed. Please try again. If the issue persists, contact support.");
-                    });
+                    throw new Error(result.message || "Payment processing failed.");
                 }
+            }).catch(function(error) {
+                console.error('Error:', error);
+                alert(error); // Here you must ensure that error.code is available or use a fallback method
             });
-        });
-        
+        }
+    });
+});
+
+
+
     </script>
     
     
