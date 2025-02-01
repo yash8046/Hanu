@@ -93,8 +93,8 @@
                             throw new Error(result.message || "Payment processing failed.");
                         }
                     }).catch(function(error) {
-                        console.error('Error:', error);
-                        alert(' '+code);
+                console.error('Error:', error);
+                alert(getErrorMessage(error.code));
                     });
                 }
             });
